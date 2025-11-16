@@ -59,7 +59,7 @@ return {
             {
               "branch",
               icon = "",
-              separator = { left = "", right = "" },
+              separator = { left = "", right = "" },
               padding = {
                 left = 2,
                 right = 1,
@@ -79,7 +79,7 @@ return {
                 end
                 return ""
               end,
-              separator = { left = "", right = "" },
+              separator = { left = "", right = "" },
               color = { fg = palette.yellow, bg = palette.mantle },
               padding = { left = 0, right = 1 },
             },
@@ -103,7 +103,7 @@ return {
                   }
                 end
               end,
-              separator = { left = "", right = "" },
+              separator = { left = "", right = "" },
               color = { bg = palette.mantle },
             },
             {
@@ -117,7 +117,7 @@ return {
                 hint = icons.diagnostics.Hint,
               },
               colored = true,
-              separator = { left = "", right = "" },
+              separator = { left = "", right = "" },
               color = { bg = palette.mantle },
             },
             {
