@@ -60,7 +60,8 @@ return {
         ["<C-p>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-b>"] = { "scroll_documentation_up", "fallback" },
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-        -- ["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
+        ["<C-n>"] = { "show_signature", "hide_signature", "fallback" },
+        ["<C-c>"] = { "hide", "fallback" },
 
         ["<Tab>"] = {
           function(cmp)
