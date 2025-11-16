@@ -9,9 +9,9 @@ return {
 	-- prefer_egl = true,
 	webgpu_preferred_adapter = require("utils.gpu").pick_gpu(),
 	webgpu_power_preference = "HighPerformance",
-	-- window_decorations = "TITLE | RESIZE",
+	window_decorations = "TITLE | RESIZE",
 	-- window_decorations = "RESIZE",
-	window_decorations = "NONE",
+	-- window_decorations = "NONE",
 
 	-- background
 	text_background_opacity = 1,
