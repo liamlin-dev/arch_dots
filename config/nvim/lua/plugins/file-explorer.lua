@@ -8,40 +8,40 @@ return {
       },
     },
     keys = {
-      { "<leader>E", false }, -- 這些可能是舊的或額外的映射
-      { "<leader>e", false },
+      -- { "<leader>E", false }, -- 這些可能是舊的或額外的映射
+      -- { "<leader>e", false },
     },
   },
 
   -- mini-files
-  {
-    "nvim-mini/mini.files",
-    version = "*",
-    lazy = false,
-    keys = {
-      { "<TAB>", "<CMD>lua MiniFiles.open()<CR>" },
-    },
-    config = function()
-      require("mini.files").setup({
-
-        mappings = {
-          close = "<TAB>",
-          go_in = "L",
-          go_in_plus = "<CR>",
-          go_out = "H",
-          go_out_plus = "",
-          mark_goto = "'",
-          mark_set = "m",
-          reset = "<BS>",
-          reveal_cwd = "@",
-          show_help = "g?",
-          synchronize = "=",
-          trim_left = "<",
-          trim_right = ">",
-        },
-      })
-    end,
-  },
+  -- {
+  --   "nvim-mini/mini.files",
+  --   version = "*",
+  --   lazy = false,
+  --   keys = {
+  --     { "<TAB>", "<CMD>lua MiniFiles.open()<CR>" },
+  --   },
+  --   config = function()
+  --     require("mini.files").setup({
+  --
+  --       mappings = {
+  --         close = "<TAB>",
+  --         go_in = "L",
+  --         go_in_plus = "<CR>",
+  --         go_out = "H",
+  --         go_out_plus = "",
+  --         mark_goto = "'",
+  --         mark_set = "m",
+  --         reset = "<BS>",
+  --         reveal_cwd = "@",
+  --         show_help = "g?",
+  --         synchronize = "=",
+  --         trim_left = "<",
+  --         trim_right = ">",
+  --       },
+  --     })
+  --   end,
+  -- },
 
   -- yazi
   -- {
