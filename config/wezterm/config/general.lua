@@ -8,7 +8,7 @@ return {
 	exit_behavior = "CloseOnCleanExit",
 	status_update_interval = 1000,
 
-	scrollback_lines = 5000,
+	scrollback_lines = 10000,
 
 	hyperlink_rules = {
 		-- Matches: a URL in parens: (URL)
@@ -44,6 +44,21 @@ return {
 		{
 			regex = "\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b",
 			format = "mailto:$0",
+		},
+		-- GitHub issues/PRs: owner/repo#123
+		{
+			regex = "([\\w\\d\\-_\\.]+/[\\w\\d\\-_\\.]+)#(\\d+)",
+			format = "https://github.com/$1/issues/$2",
+		},
+		-- File paths (absolute paths starting with / or ~)
+		{
+			regex = "[/~][\\w\\d\\-_/.]+",
+			format = "file://$0",
+		},
+		-- IP addresses with optional port
+		{
+			regex = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(:\\d+)?\\b",
+			format = "http://$0",
 		},
 	},
 }
