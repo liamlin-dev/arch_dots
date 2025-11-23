@@ -6,9 +6,7 @@ function log() {
 function tmux_kill_fzf() {
   local session=$(tmux ls | fzf | awk -F: '{print $1}')
   if [[ -n "$session" ]]; then
-    read -q "REPLY?Kill session '$session'? [y/N] "
-    echo
-    [[ "$REPLY" == [Yy] ]] && tmux kill-session -t "$session"
+    tmux kill-session -t "$session"
   fi
 }
 
