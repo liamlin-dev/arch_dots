@@ -7,6 +7,7 @@ return {
           ["c"] = { "clang_format" },
           ["cpp"] = { "clang_format" },
           ["c++"] = { "clang_format" },
+          -- ["cmake"] = { "gersemi" },
         },
       },
     },
