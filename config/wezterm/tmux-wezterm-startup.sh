@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env zsh
 SESSION_NAME="main"
 
 if ! command -v tmux &>/dev/null; then

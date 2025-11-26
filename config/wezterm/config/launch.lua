@@ -178,7 +178,7 @@ end
 -- Set default programs
 local default_prog = {}
 if platform.is_win then
-	default_prog = { "wsl", "~", "--exec", "zsh", "-c", "tmux" }
+	default_prog = { "wsl", "~", "--exec", "zsh", "-c", "~/.config/wezterm/tmux-wezterm-startup.sh" }
 elseif platform.is_mac then
 	default_prog = { "zsh", "-l" }
 elseif platform.is_linux then
