@@ -1,4 +1,6 @@
 return {
+	check_for_updates = true,
+
 	-- keyboard encoding
 	allow_win32_input_mode = true,
 	-- enable_kitty_keyboard = true,

@@ -9,13 +9,13 @@ return {
 	-- prefer_egl = true,
 	webgpu_preferred_adapter = require("utils.gpu").pick_gpu(),
 	webgpu_power_preference = "HighPerformance",
-	window_decorations = "TITLE | RESIZE",
+	-- window_decorations = "TITLE | RESIZE",
 	-- window_decorations = "RESIZE",
-	-- window_decorations = "NONE",
+	window_decorations = "NONE",
 
 	-- background
 	text_background_opacity = 1,
-	window_background_opacity = 0.95,
+	window_background_opacity = 0.80,
 	-- background = {
 	-- 	{
 	-- 		source = {
@@ -37,13 +37,13 @@ return {
 	max_fps = 144,
 
 	-- colorscheme
-	color_scheme = "Catppuccin Frappe",
+	color_scheme = "Catppuccin Mocha",
 
 	-- tab bar
 	enable_tab_bar = true,
 	hide_tab_bar_if_only_one_tab = false,
 	use_fancy_tab_bar = false,
-	tab_max_width = 25,
+	tab_max_width = 9999, -- Large value to allow tabs to expand and fill the bar
 	-- show_tab_index_in_tab_bar = true, -- override by events
 	switch_to_last_active_tab_when_closing_tab = true,
 	tab_bar_at_bottom = true,

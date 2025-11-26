@@ -94,24 +94,24 @@ local key_tables = {
 }
 
 local mouse_bindings = {
-    -- Ctrl-click will open the link under the mouse cursor
-    {
-        event = { Up = { streak = 1, button = "Left" } },
-        mods = "CTRL",
-        action = act.OpenLinkAtMouseCursor,
-    },
-    -- Open on select
-    {
-        event = { Up = { streak = 1, button = 'Left' } },
-        mods = 'NONE',
-        action = wezterm.action.CompleteSelection 'Clipboard',
-    },
+	-- Ctrl-click will open the link under the mouse cursor
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CTRL",
+		action = act.OpenLinkAtMouseCursor,
+	},
+	-- Open on select
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "NONE",
+		action = wezterm.action.CompleteSelection("Clipboard"),
+	},
 }
 
 return {
-    disable_default_key_bindings = true,
-    -- leader = leader,
-    keys = keys,
-    key_tables = key_tables,
-    mouse_bindings = mouse_bindings,
+	disable_default_key_bindings = true,
+	-- leader = leader,
+	keys = keys,
+	key_tables = key_tables,
+	mouse_bindings = mouse_bindings,
 }
