@@ -13,7 +13,7 @@ return {
       end
     end,
     opts = function()
-      local palette = require("catppuccin.palettes").get_palette("macchiato")
+      local palette = require("catppuccin.palettes").get_palette("mocha")
       local utils = require("utils.lualine")
       local components = utils.components
 

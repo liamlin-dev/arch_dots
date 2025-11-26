@@ -10,7 +10,7 @@ return {
     name = "catppuccin",
     priority = 1000,
     config = function()
-      local flavour = "macchiato"
+      local flavour = "mocha"
       local palette = require("catppuccin.palettes").get_palette(flavour)
       require("catppuccin").setup({
         flavour = flavour, -- latte, frappe, macchiato, mocha
