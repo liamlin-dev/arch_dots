@@ -52,15 +52,8 @@ local keys = {
 
 
     -- resizes fonts
-    {
-        key = 'f',
-        mods = 'LEADER',
-        action = act.ActivateKeyTable({
-            name = 'resize_font',
-            one_shot = false,
-            timemout_miliseconds = 1000,
-        }),
-    },
+    { key = '=',   mods = 'CTRL|ALT',       action = act.IncreaseFontSize },
+    { key = '-',   mods = 'CTRL|ALT',       action = act.DecreaseFontSize },
     -- resize panes
     -- {
     --    key = 'p',
@@ -76,21 +69,21 @@ local keys = {
 
 -- stylua: ignore
 local key_tables = {
-    resize_font = {
-        { key = 'k',      action = act.IncreaseFontSize },
-        { key = 'j',      action = act.DecreaseFontSize },
-        { key = 'r',      action = act.ResetFontSize },
-        { key = 'Escape', action = 'PopKeyTable' },
-        { key = 'q',      action = 'PopKeyTable' },
-    },
-    resize_pane = {
-        { key = 'k',      action = act.AdjustPaneSize({ 'Up', 5 }) },
-        { key = 'j',      action = act.AdjustPaneSize({ 'Down', 5 }) },
-        { key = 'h',      action = act.AdjustPaneSize({ 'Left', 5 }) },
-        { key = 'l',      action = act.AdjustPaneSize({ 'Right', 5 }) },
-        { key = 'Escape', action = 'PopKeyTable' },
-        { key = 'q',      action = 'PopKeyTable' },
-    },
+    -- resize_font = {
+    --     { key = 'k',      action = act.IncreaseFontSize },
+    --     { key = 'j',      action = act.DecreaseFontSize },
+    --     { key = 'r',      action = act.ResetFontSize },
+    --     { key = 'Escape', action = 'PopKeyTable' },
+    --     { key = 'q',      action = 'PopKeyTable' },
+    -- },
+    -- resize_pane = {
+    --     { key = 'k',      action = act.AdjustPaneSize({ 'Up', 5 }) },
+    --     { key = 'j',      action = act.AdjustPaneSize({ 'Down', 5 }) },
+    --     { key = 'h',      action = act.AdjustPaneSize({ 'Left', 5 }) },
+    --     { key = 'l',      action = act.AdjustPaneSize({ 'Right', 5 }) },
+    --     { key = 'Escape', action = 'PopKeyTable' },
+    --     { key = 'q',      action = 'PopKeyTable' },
+    -- },
 }
 
 local mouse_bindings = {
