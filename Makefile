@@ -1,8 +1,12 @@
+# 變數定義
 TARGET_HOME := ~
 TARGET_CONFIG := ~/.config
 TARGET_LOCAL := ~/.local/share
 
-.PHONY: link unlink install upgrade refresh-package-list reset-audio
+CHECK_FLATPAK_INSTALLED := if command -v flatpak >/dev/null 2>&1; then true; else false; fi
+CHECK_USER_SESSION := if systemctl --user show >/dev/null 2>&1; then true; else false; fi
+
+.PHONY: link unlink install upgrade refresh-package-list refresh-flatpak-list reset-audio flatpak-upgrade flatpak-install flatpak-refresh
 
 ## --- Dotfiles 管理 ---
 link:
@@ -18,38 +22,77 @@ unlink:
 	@stow -v --target $(TARGET_LOCAL) -D local
 
 
-## --- 系統升級 ---
+## --- 🚀 系統升級 ---
 upgrade:
-	@echo "⬆️  Upgrading system..."
-	@sudo dnf upgrade -y
+	@echo "⬆️ Upgrading system (pacman & AUR with paru)..."
+	@paru -Syu --noconfirm
 	@make refresh-package-list
-	@flatpak update -y
-	@make refresh-flatpak-list
+	@make flatpak-upgrade
 	@make reset-audio
-	
-## --- 產生最新手動安裝的套件清單 ---
+
+flatpak-upgrade:
+	@if $(CHECK_FLATPAK_INSTALLED); then \
+		echo "⬆️ Upgrading Flatpak packages..."; \
+		flatpak update -y; \
+		make flatpak-refresh; \
+	else \
+		echo "ℹ️ Flatpak not installed. Skipping Flatpak upgrade."; \
+	fi
+
+
+
+## --- 📝 產生最新手動安裝的套件清單 (pacman) ---
+# Q: 查詢, q: 僅名稱, e: 手動安裝, n: 原生套件 (Native), m: 外部套件 (Foreign/AUR)
 refresh-package-list:
-	@echo "📝 Saving manually installed packages to packages.txt..."
-	@dnf repoquery --userinstalled --qf '%{name}\n' > packages.txt
+	@echo "📝 Saving explicitly installed native packages to pkglist_native.txt..."
+	@pacman -Qqen > pkglist_native.txt
+	@echo "📝 Saving explicitly installed foreign (AUR) packages to pkglist_aur.txt..."
+	@pacman -Qqem > pkglist_aur.txt
 
 refresh-flatpak-list:
-	@echo "📝 Saving manually installed flatpak packages to flatpak-packages.txt..."
-	@flatpak list --app --columns=application,origin | awk '{print $$1 " " $$2}' > flatpak-packages.txt
+	@if $(CHECK_FLATPAK_INSTALLED); then \
+		echo "📝 Saving manually installed flatpak packages to flatpak-packages.txt..."; \
+		flatpak list --app --columns=application,origin | awk '{print $$1 " " $$2}' > flatpak-packages.txt; \
+	else \
+		echo "⚠️ Flatpak not installed. Skipping Flatpak package list refresh."; \
+	fi
 
-## --- 套件安裝（來自 package list） ---
+
+## --- 📦 套件安裝（來自 package list）---
 install:
-	@echo "📦 Installing packages from packages.txt..."
-	@if [ ! -f packages.txt ]; then \
-		echo "❌ packages.txt not found."; exit 1; \
+	@echo "📦 Installing Native packages from pkglist_native.txt (using pacman)..."
+	@if [ ! -f pkglist_native.txt ]; then \
+		echo "❌ pkglist_native.txt not found."; exit 1; \
 	fi
-	@sudo dnf install -y $$(grep -vE '^\s*#|^\s*$$' packages.txt)
-	@if [ ! -f flatpak-packages.txt ]; then \
-		echo "❌ flatpak-packages.txt not found."; exit 1; \
+	@sudo pacman -S --needed --noconfirm $$(grep -vE '^\s*#|^\s*$$' pkglist_native.txt)
+
+	@echo "📦 Installing Foreign (AUR) packages from pkglist_aur.txt (using paru)..."
+	@if [ ! -f pkglist_aur.txt ]; then \
+		echo "❌ pkglist_aur.txt not found."; exit 1; \
 	fi
-	@awk '{print $$2 " " $$1}' flatpak-packages.txt | xargs -L1 flatpak install -y --noninteractive
+	@paru -S --needed --noconfirm $$(grep -vE '^\s*#|^\s*$$' pkglist_aur.txt)
+
+	@make flatpak-install
+
+flatpak-install:
+	@if $(CHECK_FLATPAK_INSTALLED); then \
+		echo "📦 Installing Flatpak packages from flatpak-packages.txt..."; \
+		if [ ! -f flatpak-packages.txt ]; then \
+			echo "❌ flatpak-packages.txt not found."; exit 1; \
+		fi; \
+		awk '{print $$2 " " $$1}' flatpak-packages.txt | xargs -L1 flatpak install -y --noninteractive; \
+	else \
+		echo "ℹ️ Flatpak not installed. Skipping Flatpak installation."; \
+	fi
+
 
 ## -- Miscs --
 reset-audio:
-	@echo "🔄 Resetting PipeWire/WirePlumber state..."
+	@echo "🔄 Resetting PipeWire/WirePlumber state (Checking for User Session)..."
 	@rm -rf ~/.local/state/wireplumber
-	@systemctl --user restart wireplumber pipewire pipewire-pulse
+	@if $(CHECK_USER_SESSION); then \
+		echo "✅ User Session detected. Restarting audio services..."; \
+		systemctl --user restart wireplumber pipewire pipewire-pulse; \
+	else \
+		echo "ℹ️ User Session not detected (Not a typical desktop environment). State cleared, skipping service restart."; \
+	fi
