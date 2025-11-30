@@ -33,6 +33,7 @@ fi
 # cd
 if command -v z &>/dev/null; then
   alias -- cd="z"
+  alias -- zi='_zoxide_zi'
 else
   log "missing zoxide"
 fi

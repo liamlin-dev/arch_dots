@@ -31,3 +31,5 @@ function add_path_append() {
     export PATH="$PATH:$1"
   fi
 }
+
+source $HOME/.config/zsh/functions/fzf.zsh
