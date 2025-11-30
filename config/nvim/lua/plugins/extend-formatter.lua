@@ -8,6 +8,7 @@ return {
           ["cpp"] = { "clang_format" },
           ["c++"] = { "clang_format" },
           -- ["cmake"] = { "gersemi" },
+          ["zsh"] = { "shfmt" },
         },
       },
     },
