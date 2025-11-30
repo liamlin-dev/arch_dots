@@ -110,19 +110,23 @@ function fman() {
   # man -k .: 取得所有 man page 條目
   # 預覽視窗: 提取 man page 名稱和章節，然後顯示 man 內容
   page=$(
-    man -k . 2>/dev/null | fzf \
-      --height=70% \
-      --prompt="Man > " \
-      --preview 'echo {} | awk "{print \$1 \" \" \$2}" | tr -d "()" | xargs man 2>/dev/null | col -bx'
+    man -k . -s 1 2>/dev/null |
+      awk '{printf "%-30s %s\n", $1, $2}' |
+      sort -k1,1 -V |
+      uniq |
+      fzf --height=70% \
+        --prompt="Man > " \
+        --preview 'echo {} | awk "{print \$1 \" \" \$2}" | tr -d "()" | xargs man 2>/dev/null | col -bx'
   )
 
   if [[ -n "$page" ]]; then
-    # 提取 man page 的名稱和章節 (例如: printf (3) -> printf 3)
-    local command_and_section
-    command_and_section=$(echo "$page" | awk '{print $1 " " $2}' | tr -d '()')
-    man "$command_and_section"
+    local name section
+    name=$(echo "$page" | awk '{print $1}')
+
+    man "$name"
   fi
 }
+
 # fclib: 模糊 C 函式庫查詢 (man -k -s 2:3 + fzf)
 function fclib() {
   local page
