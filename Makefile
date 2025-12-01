@@ -23,6 +23,10 @@ unlink:
 
 
 ## --- 🚀 系統升級 ---
+news:
+	@echo "⬆️Checking news (pacman & AUR with paru)..."
+	@paru -Pw
+
 upgrade:
 	@echo "⬆️ Upgrading system (pacman & AUR with paru)..."
 	@paru -Syu --noconfirm

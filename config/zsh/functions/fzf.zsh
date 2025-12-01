@@ -110,7 +110,7 @@ function fman() {
   # man -k .: 取得所有 man page 條目
   # 預覽視窗: 提取 man page 名稱和章節，然後顯示 man 內容
   page=$(
-    man -k . -s 1 2>/dev/null |
+    man -k . 2>/dev/null |
       awk '{printf "%-30s %s\n", $1, $2}' |
       sort -k1,1 -V |
       uniq |
@@ -122,8 +122,9 @@ function fman() {
   if [[ -n "$page" ]]; then
     local name section
     name=$(echo "$page" | awk '{print $1}')
+    section=$(echo "$page" | awk '{print $2}' | tr -d '()')
 
-    man "$name"
+    man "$section" "$name"
   fi
 }
 

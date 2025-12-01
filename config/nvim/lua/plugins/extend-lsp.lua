@@ -40,6 +40,7 @@ return {
             "--function-arg-placeholders",
             "--fallback-style=llvm",
             "--compile-commands-dir=build", -- 告訴 Clangd 在 'build' 目錄尋找 compile_commands.json
+            "--log=verbose",
           },
           init_options = {
             usePlaceholders = true,
@@ -49,6 +50,7 @@ return {
             fallbackFlags = {
               "--std=c++20", -- 預設使用 C++20 標準
               "-Wall", -- 啟用常見警告
+              "-Wextra",
             },
           },
         },
