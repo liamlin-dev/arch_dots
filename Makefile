@@ -24,23 +24,22 @@ unlink:
 
 ## --- 🚀 系統升級 ---
 news:
-	@echo "⬆️Checking news (pacman & AUR with paru)..."
+	@echo "📰 Checking news (pacman & AUR with paru)..."
 	@paru -Pw
 
 upgrade:
-	@echo "⬆️ Upgrading system (pacman & AUR with paru)..."
+	@echo "🔃 Upgrading system (pacman & AUR with paru)..."
 	@paru -Syu --noconfirm
 	@make refresh-package-list
 	@make flatpak-upgrade
-	@make reset-audio
 
 flatpak-upgrade:
 	@if $(CHECK_FLATPAK_INSTALLED); then \
-		echo "⬆️ Upgrading Flatpak packages..."; \
+		echo "🔃 Upgrading Flatpak packages..."; \
 		flatpak update -y; \
 		make flatpak-refresh; \
 	else \
-		echo "ℹ️ Flatpak not installed. Skipping Flatpak upgrade."; \
+		echo "🔃 Flatpak not installed. Skipping Flatpak upgrade."; \
 	fi
 
 
@@ -89,14 +88,3 @@ flatpak-install:
 		echo "ℹ️ Flatpak not installed. Skipping Flatpak installation."; \
 	fi
 
-
-## -- Miscs --
-reset-audio:
-	@echo "🔄 Resetting PipeWire/WirePlumber state (Checking for User Session)..."
-	@rm -rf ~/.local/state/wireplumber
-	@if $(CHECK_USER_SESSION); then \
-		echo "✅ User Session detected. Restarting audio services..."; \
-		systemctl --user restart wireplumber pipewire pipewire-pulse; \
-	else \
-		echo "ℹ️ User Session not detected (Not a typical desktop environment). State cleared, skipping service restart."; \
-	fi
