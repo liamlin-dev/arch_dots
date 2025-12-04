@@ -41,7 +41,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 100,
         },
-        ghost_text = { enabled = false }, -- conflict with menu auto show },
+        ghost_text = { enabled = false }, -- conflict with menu auto show
       },
 
       cmdline = {

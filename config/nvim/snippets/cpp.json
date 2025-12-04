@@ -1,0 +1,305 @@
+{
+  "int8_t": {
+    "prefix": "i8",
+    "body": "int8_t",
+    "description": "int8_t type"
+  },
+  "int16_t": {
+    "prefix": "i16",
+    "body": "int16_t",
+    "description": "int16_t type"
+  },
+  "int32_t": {
+    "prefix": "i32",
+    "body": "int32_t",
+    "description": "int32_t type"
+  },
+  "int64_t": {
+    "prefix": "i64",
+    "body": "int64_t",
+    "description": "int64_t type"
+  },
+  "uint8_t": {
+    "prefix": "u8",
+    "body": "uint8_t",
+    "description": "uint8_t type"
+  },
+  "uint16_t": {
+    "prefix": "u16",
+    "body": "uint16_t",
+    "description": "uint16_t type"
+  },
+  "uint32_t": {
+    "prefix": "u32",
+    "body": "uint32_t",
+    "description": "uint32_t type"
+  },
+  "uint64_t": {
+    "prefix": "u64",
+    "body": "uint64_t",
+    "description": "uint64_t type"
+  },
+  "size_t": {
+    "prefix": "sz",
+    "body": "size_t",
+    "description": "size_t type"
+  },
+  "ssize_t": {
+    "prefix": "ssz",
+    "body": "ssize_t",
+    "description": "ssize_t type"
+  },
+  "uintptr_t": {
+    "prefix": "uptr",
+    "body": "uintptr_t",
+    "description": "uintptr_t type"
+  },
+  "intptr_t": {
+    "prefix": "iptr",
+    "body": "intptr_t",
+    "description": "intptr_t type"
+  },
+  "pragma once": {
+    "prefix": "prag",
+    "body": "#pragma once\n\n$0",
+    "description": "Pragma once header guard"
+  },
+  "namespace": {
+    "prefix": "ns",
+    "body": [
+      "namespace ${1:name} {",
+      "\t$0",
+      "}  // namespace $1"
+    ],
+    "description": "Namespace with closing comment"
+  },
+  "smart pointer unique": {
+    "prefix": "uniq",
+    "body": "std::unique_ptr<${1:Type}>",
+    "description": "std::unique_ptr"
+  },
+  "smart pointer shared": {
+    "prefix": "shrd",
+    "body": "std::shared_ptr<${1:Type}>",
+    "description": "std::shared_ptr"
+  },
+  "make_unique": {
+    "prefix": "mkun",
+    "body": "std::make_unique<${1:Type}>(${2:args})",
+    "description": "std::make_unique"
+  },
+  "make_shared": {
+    "prefix": "mksh",
+    "body": "std::make_shared<${1:Type}>(${2:args})",
+    "description": "std::make_shared"
+  },
+  "optional": {
+    "prefix": "opt",
+    "body": "std::optional<${1:Type}>",
+    "description": "std::optional"
+  },
+  "variant": {
+    "prefix": "var",
+    "body": "std::variant<${1:Types}>",
+    "description": "std::variant"
+  },
+  "array": {
+    "prefix": "arr",
+    "body": "std::array<${1:Type}, ${2:Size}>",
+    "description": "std::array"
+  },
+  "vector": {
+    "prefix": "vec",
+    "body": "std::vector<${1:Type}>",
+    "description": "std::vector"
+  },
+  "unordered_map": {
+    "prefix": "umap",
+    "body": "std::unordered_map<${1:Key}, ${2:Value}>",
+    "description": "std::unordered_map"
+  },
+  "unordered_set": {
+    "prefix": "uset",
+    "body": "std::unordered_set<${1:Type}>",
+    "description": "std::unordered_set"
+  },
+  "string_view": {
+    "prefix": "sv",
+    "body": "std::string_view",
+    "description": "std::string_view"
+  },
+  "span": {
+    "prefix": "spn",
+    "body": "std::span<${1:Type}>",
+    "description": "std::span"
+  },
+  "lambda": {
+    "prefix": "lam",
+    "body": [
+      "[${1:captures}](${2:params}) ${3:-> ${4:RetType} }{",
+      "\t${0:// body}",
+      "}"
+    ],
+    "description": "Lambda expression"
+  },
+  "range for": {
+    "prefix": "fora",
+    "body": [
+      "for (${1:auto}& ${2:item} : ${3:container}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Range-based for loop with reference"
+  },
+  "range for const": {
+    "prefix": "forac",
+    "body": [
+      "for (const ${1:auto}& ${2:item} : ${3:container}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Range-based for loop with const reference"
+  },
+  "static_cast": {
+    "prefix": "stc",
+    "body": "static_cast<${1:Type}>(${2:expr})",
+    "description": "static_cast"
+  },
+  "dynamic_cast": {
+    "prefix": "dyc",
+    "body": "dynamic_cast<${1:Type}>(${2:expr})",
+    "description": "dynamic_cast"
+  },
+  "const_cast": {
+    "prefix": "coc",
+    "body": "const_cast<${1:Type}>(${2:expr})",
+    "description": "const_cast"
+  },
+  "reinterpret_cast": {
+    "prefix": "rec",
+    "body": "reinterpret_cast<${1:Type}>(${2:expr})",
+    "description": "reinterpret_cast"
+  },
+  "constexpr": {
+    "prefix": "cexpr",
+    "body": "constexpr ${1:auto} ${2:name} = ${3:value};",
+    "description": "constexpr variable"
+  },
+  "consteval": {
+    "prefix": "ceval",
+    "body": [
+      "consteval ${1:auto} ${2:name}(${3:params}) {",
+      "\t${0:return}",
+      "}"
+    ],
+    "description": "consteval function"
+  },
+  "concept": {
+    "prefix": "conc",
+    "body": [
+      "template <typename ${1:T}>",
+      "concept ${2:Name} = ${3:requires};$0"
+    ],
+    "description": "Concept definition"
+  },
+  "requires": {
+    "prefix": "req",
+    "body": "requires ${1:condition}",
+    "description": "Requires clause"
+  },
+  "template class": {
+    "prefix": "tclass",
+    "body": [
+      "template <typename ${1:T}>",
+      "class ${2:ClassName} {",
+      "public:",
+      "\t${2}() = default;",
+      "\t~${2}() = default;",
+      "\t",
+      "\t${2}(const ${2}&) = default;",
+      "\t${2}& operator=(const ${2}&) = default;",
+      "\t",
+      "\t${2}(${2}&&) noexcept = default;",
+      "\t${2}& operator=(${2}&&) noexcept = default;",
+      "\t",
+      "\t$0",
+      "};",
+      ""
+    ],
+    "description": "Template class with rule of five"
+  },
+  "move": {
+    "prefix": "mov",
+    "body": "std::move(${1:value})",
+    "description": "std::move"
+  },
+  "forward": {
+    "prefix": "fwd",
+    "body": "std::forward<${1:Type}>(${2:value})",
+    "description": "std::forward"
+  },
+  "if constexpr": {
+    "prefix": "ifc",
+    "body": [
+      "if constexpr (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if constexpr statement"
+  },
+  "structured binding": {
+    "prefix": "auto[]",
+    "body": "auto [${1:vars}] = ${2:expr};",
+    "description": "Structured binding"
+  },
+  "noexcept": {
+    "prefix": "noe",
+    "body": "noexcept",
+    "description": "noexcept specifier"
+  },
+  "nodiscard": {
+    "prefix": "nod",
+    "body": "[[nodiscard]]",
+    "description": "[[nodiscard]] attribute"
+  },
+  "likely": {
+    "prefix": "lik",
+    "body": "[[likely]]",
+    "description": "[[likely]] attribute"
+  },
+  "unlikely": {
+    "prefix": "unl",
+    "body": "[[unlikely]]",
+    "description": "[[unlikely]] attribute"
+  },
+  "mutex": {
+    "prefix": "mtx",
+    "body": "std::mutex",
+    "description": "std::mutex"
+  },
+  "lock_guard": {
+    "prefix": "lkg",
+    "body": "std::lock_guard<std::mutex> ${1:lock}(${2:mutex});",
+    "description": "std::lock_guard"
+  },
+  "unique_lock": {
+    "prefix": "ulk",
+    "body": "std::unique_lock<std::mutex> ${1:lock}(${2:mutex});",
+    "description": "std::unique_lock"
+  },
+  "atomic": {
+    "prefix": "atm",
+    "body": "std::atomic<${1:Type}>",
+    "description": "std::atomic"
+  },
+  "assert": {
+    "prefix": "ass",
+    "body": "assert(${1:condition});",
+    "description": "assert"
+  },
+  "static_assert": {
+    "prefix": "stas",
+    "body": "static_assert(${1:condition}, \"${2:message}\");",
+    "description": "static_assert"
+  }
+}
