@@ -128,36 +128,6 @@ function fman() {
   fi
 }
 
-# fclib: 模糊 C 函式庫查詢 (man -k -s 2:3 + fzf)
-function fclib() {
-  local page
-
-  # man -k . -s 2:3: 搜索 man section 2 (系統呼叫) 和 3 (C 函式庫)
-  # 預覽視窗: 提取名稱和章節，然後顯示 man 內容
-  # sort: 對輸入的每一行，僅使用第一個欄位作為排序依據，並以版本號碼的方式進行比較和排序
-  page=$(
-    man -k . -s 2:3 2>/dev/null |
-      awk '{printf "%-30s %s\n", $1, $2}' |
-      sort -k1,1 -V |
-      uniq |
-      fzf --height=70% \
-        --prompt="C-Lib > " \
-        --preview '
-              name=$(echo {} | awk "{print \$1}")
-              sec=$(echo {} | awk "{print \$2}" | tr -d "()")
-              man "$sec" "$name" 2>/dev/null | col -bx
-          '
-  )
-
-  if [[ -n "$page" ]]; then
-    local name section
-    name=$(echo "$page" | awk '{print $1}')
-    section=$(echo "$page" | awk '{print $2}' | tr -d '()')
-
-    man "$section" "$name"
-  fi
-}
-
 # fmenu: FZF 整合選單
 function fmenu() {
   local choice
