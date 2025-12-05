@@ -7,7 +7,7 @@ add_path "$HOME/.local/bin"
 add_path "$HOME/.local/share/nvim/mason/bin"
 
 # nodejs
-NVM_DIR="/usr/share/nvm"
+NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 add_path "$HOME/.npm-global/bin"
