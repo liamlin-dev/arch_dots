@@ -49,6 +49,11 @@
     "body": "ssize_t",
     "description": "ssize_t type"
   },
+  "string": {
+    "prefix": "str",
+    "body": "std::string",
+    "description": "std::string"
+  },
   "uintptr_t": {
     "prefix": "uptr",
     "body": "uintptr_t",
