@@ -4,12 +4,8 @@ return {
     "folke/snacks.nvim",
     opts = {
       explorer = {
-        enabled = false, -- 將內置的 explorer 功能設為禁用
+        enabled = false,
       },
-    },
-    keys = {
-      { "<leader>E", false }, -- 這些可能是舊的或額外的映射
-      { "<leader>e", false },
     },
   },
 

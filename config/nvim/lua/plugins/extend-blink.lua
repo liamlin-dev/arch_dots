@@ -52,6 +52,14 @@ return {
         },
         completion = { menu = { auto_show = true } },
       },
+
+      signature = {
+        window = {
+          -- If this set true will cause ctrl + k not working. Just use noise stead.
+          show_documentation = false,
+        },
+      },
+
       keymap = {
         preset = "none",
 
