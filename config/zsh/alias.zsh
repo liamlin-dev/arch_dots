@@ -54,13 +54,6 @@ else
   log "missing ripgrep"
 fi
 
-# pnpm
-if command -v pnpm &>/dev/null; then
-  alias -- pn="pnpm"
-else
-  log "missing pnpm"
-fi
-
 # tmux
 if command -v tmux &>/dev/null; then
   alias -- tn="tmux new -s"
