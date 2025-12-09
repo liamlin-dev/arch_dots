@@ -1,3 +1,2 @@
-opencode
 paru
 paru-debug
