@@ -39,3 +39,17 @@ local keymaps = {
 for _, map in ipairs(keymaps) do
   vim.keymap.set(map.mode, map.key, map.action, vim.tbl_extend("force", { desc = map.desc }, map.opts or {}))
 end
+
+-- disable default keymap
+local del = vim.keymap.del
+-- if vim.fn.executable("lazygit") == 1 then
+--   del("n", "<leader>gg")
+--   del("n", "<leader>gG")
+-- end
+
+del("n", "<leader>gL")
+del("n", "<leader>gb")
+del("n", "<leader>gf")
+del("n", "<leader>gl")
+del({ "n", "x" }, "<leader>gB")
+del({ "n", "x" }, "<leader>gY")
