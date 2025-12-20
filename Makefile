@@ -24,12 +24,12 @@ unlink:
 
 ## --- 🚀 系統升級 ---
 news:
-	@echo "📰 Checking news (pacman & AUR with paru)..."
-	@paru -Pw
+	@echo "📰 Checking news (pacman & AUR with yay)..."
+	@yay -Pw
 
 upgrade:
-	@echo "🔃 Upgrading system (pacman & AUR with paru)..."
-	@paru -Syu --noconfirm
+	@echo "🔃 Upgrading system (pacman & AUR with yay)..."
+	@yay -Syu --noconfirm
 	@make refresh-package-list
 	@make flatpak-upgrade
 
@@ -69,11 +69,11 @@ install:
 	fi
 	@sudo pacman -S --needed --noconfirm $$(grep -vE '^\s*#|^\s*$$' pkglist_native.txt)
 
-	@echo "📦 Installing Foreign (AUR) packages from pkglist_aur.txt (using paru)..."
+	@echo "📦 Installing Foreign (AUR) packages from pkglist_aur.txt (using yay)..."
 	@if [ ! -f pkglist_aur.txt ]; then \
 		echo "❌ pkglist_aur.txt not found."; exit 1; \
 	fi
-	@paru -S --needed --noconfirm $$(grep -vE '^\s*#|^\s*$$' pkglist_aur.txt)
+	@yay -S --needed --noconfirm $$(grep -vE '^\s*#|^\s*$$' pkglist_aur.txt)
 
 	@make flatpak-install
 

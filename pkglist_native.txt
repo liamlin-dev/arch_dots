@@ -10,6 +10,7 @@ docker
 doxygen
 dust
 eza
+fastfetch
 fd
 fzf
 gdb
@@ -21,6 +22,7 @@ kubectl
 lazydocker
 lazygit
 lldb
+lsof
 man-db
 man-pages
 neovim
