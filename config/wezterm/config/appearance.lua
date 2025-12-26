@@ -15,7 +15,8 @@ return {
 
 	-- background
 	text_background_opacity = 1,
-	window_background_opacity = 0.80,
+	window_background_opacity = 0.85,
+
 	-- background = {
 	-- 	{
 	-- 		source = {
