@@ -21,6 +21,14 @@ unlink:
 	@stow -v --target $(TARGET_CONFIG) -D config
 	@stow -v --target $(TARGET_LOCAL) -D local
 
+link-kde:
+	@echo "🔗 Linking kde..."
+	@stow -v --target $(TARGET_CONFIG) kde
+
+unlink-kde:
+	@echo "🔗 Linking kde..."
+	@stow -v --target $(TARGET_CONFIG) -D kde
+
 
 ## --- 🚀 系統升級 ---
 news:

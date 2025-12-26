@@ -1,0 +1,65 @@
+[19500045-4829-4db1-8d7f-2409b10244c7]
+Description=Window settings for Zen Browser
+belowrule=2
+desktops=cb95cebf-362e-423e-ae0e-37a4a182ca4b
+desktopsrule=3
+placementrule=2
+size=1892,1003
+sizerule=3
+types=1
+wmclass=zen
+wmclassmatch=1
+
+[2cc75b18-30a2-49fe-9f87-e0bc529b64a9]
+Description=Settings for Timeshift
+Enabled=false
+desktops=7be4d5bc-4f13-4082-9e15-604c5a5fff76
+desktopsrule=3
+types=1
+wmclass=Timeshift
+wmclassmatch=2
+
+[37cc50fb-7e18-447a-8fba-9a94dcbd1ca0]
+Description=Settings for org.mozilla.Thunderbird
+Enabled=false
+desktops=7be4d5bc-4f13-4082-9e15-604c5a5fff76
+desktopsrule=3
+wmclass=org.mozilla.Thunderbird
+wmclassmatch=1
+
+[8e011285-a2a6-4f94-8da1-99a8ab72b23e]
+Description=Settings for virt-manager
+Enabled=false
+desktops=7af02a11-8edb-4335-a3c6-bb6e2fad4af6
+desktopsrule=3
+wmclass=virt-manager
+wmclassmatch=1
+
+[General]
+count=7
+rules=19500045-4829-4db1-8d7f-2409b10244c7,d2c0972a-899e-4d3c-9848-dbfd5c40a7d2,cb1cb224-8808-47ec-aa1a-53b51dc09055,8e011285-a2a6-4f94-8da1-99a8ab72b23e,2cc75b18-30a2-49fe-9f87-e0bc529b64a9,37cc50fb-7e18-447a-8fba-9a94dcbd1ca0,c6aa4fbe-d082-4df3-a37a-d15495b73130
+
+[c6aa4fbe-d082-4df3-a37a-d15495b73130]
+Description=Others
+Enabled=false
+desktops=3e48e757-2866-48f5-b98a-8deeb248ec84
+desktopsrule=3
+
+[cb1cb224-8808-47ec-aa1a-53b51dc09055]
+Description=Settings for obsidian
+Enabled=false
+desktops=3e48e757-2866-48f5-b98a-8deeb248ec84
+desktopsrule=3
+wmclass=obsidian
+wmclassmatch=1
+
+[d2c0972a-899e-4d3c-9848-dbfd5c40a7d2]
+Description=Settings for org.wezfurlong.wezterm
+belowrule=2
+desktops=7be4d5bc-4f13-4082-9e15-604c5a5fff76
+desktopsrule=3
+placementrule=2
+size=1905,996
+sizerule=3
+wmclass=org.wezfurlong.wezterm
+wmclassmatch=1

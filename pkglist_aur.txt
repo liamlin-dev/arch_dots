@@ -1,2 +1,2 @@
-yay
-yay-debug
+ttf-ms-fonts
+visual-studio-code-bin

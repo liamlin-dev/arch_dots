@@ -1,0 +1,9 @@
+[Libinput][2362][8204][ASUP1204:00 093A:200C Touchpad]
+NaturalScroll=true
+PointerAcceleration=0.600
+ScrollFactor=0.5
+ScrollMethod=1
+TapDragLock=false
+
+[Mouse]
+cursorTheme=Breeze_Light
