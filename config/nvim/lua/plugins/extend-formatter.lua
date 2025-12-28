@@ -9,6 +9,8 @@ return {
           ["c++"] = { "clang_format" },
           -- ["cmake"] = { "gersemi" },
           ["zsh"] = { "shfmt" },
+          ["sh"] = { "shfmt" },
+          ["bash"] = { "shfmt" },
         },
       },
     },

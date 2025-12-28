@@ -39,7 +39,7 @@ return {
             "--completion-style=detailed",
             "--function-arg-placeholders",
             "--fallback-style=llvm",
-            "--compile-commands-dir=build", -- 告訴 Clangd 在 'build' 目錄尋找 compile_commands.json
+            -- "--compile-commands-dir=build", -- 告訴 Clangd 在 'build' 目錄尋找 compile_commands.json
             "--log=verbose",
           },
           init_options = {
