@@ -6,3 +6,6 @@ Seen=true
 
 [Applications][org.qbittorrent.qBittorrent]
 Seen=true
+
+[DoNotDisturb]
+NotificationSoundsMuted=false
