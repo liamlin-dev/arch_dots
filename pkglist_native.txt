@@ -176,6 +176,7 @@ plocate
 poppler-glib
 power-profiles-daemon
 powerdevil
+pre-commit
 print-manager
 pv
 python
