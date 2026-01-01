@@ -12,7 +12,7 @@ vim.g.lazyvim_blink_main = true
 -- vim.opt.winborder = "single"
 
 local opt = vim.opt
-
+opt.clipboard = "unnamedplus"
 opt.fillchars = {
   foldopen = "",
   foldclose = "",
@@ -24,3 +24,16 @@ opt.fillchars = {
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split" -- preview substitutions live
 opt.grepprg = "rg --vimgrep" -- use ripgrep for :grep
+
+-- 強制使用 OSC 52，nvim 就可以透過控制碼與遠端剪貼簿互通
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
