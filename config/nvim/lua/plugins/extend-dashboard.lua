@@ -26,7 +26,7 @@ return {
         -- stylua: ignore
         ---@type snacks.dashboard.Item[]
         keys = {
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+          -- { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
           { icon = " ", key = "f", desc = "Find File", action = ":FzfLua files" },
           -- { icon = " ", key = "e", desc = "Explore", action = ":Yazi" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
