@@ -1,3 +1,4 @@
+flamegraph
 ttf-ms-fonts
 visual-studio-code-bin
 wezterm-nightly-bin

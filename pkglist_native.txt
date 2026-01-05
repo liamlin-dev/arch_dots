@@ -111,6 +111,7 @@ kwallet-pam
 kwayland-integration
 lazydocker
 lazygit
+lcov
 less
 libappindicator
 libdvdcss
@@ -121,6 +122,7 @@ linux
 linux-firmware
 linux-headers
 lldb
+llvm
 logrotate
 lsb-release
 lsof
@@ -156,6 +158,7 @@ openssh
 os-prober
 pacman-contrib
 pavucontrol
+perf
 perl
 pipewire-alsa
 pipewire-jack
@@ -201,6 +204,7 @@ sof-firmware
 spectacle
 starship
 stow
+strace
 sudo
 sysfsutils
 sysstat
