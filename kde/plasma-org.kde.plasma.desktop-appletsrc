@@ -7,6 +7,7 @@ RightButton;NoModifier=org.kde.contextmenu
 [Containments][1]
 ItemGeometries-1536x864=
 ItemGeometries-1920x1080=
+ItemGeometries-2259x1271=
 ItemGeometries-2560x1440=Applet-139:16,0,320,560,0;Applet-140:16,560,320,784,0;
 ItemGeometriesHorizontal=
 activityId=237aec74-b959-4a96-88ed-7d3abedb0331
@@ -22,7 +23,7 @@ DialogHeight=583
 DialogWidth=720
 
 [Containments][1][General]
-positions={"1536x864":["1","14"],"1920x1080":["1","17"],"2560x1440":["1","23"]}
+positions={"1536x864":["1","14"],"1920x1080":["1","17"],"2259x1271":["1","20"],"2560x1440":["1","23"]}
 sortMode=-1
 
 [Containments][1][Wallpaper][org.kde.image][General]
@@ -250,7 +251,7 @@ immutability=1
 plugin=org.kde.plasma.clipboard
 
 [Containments][56][Applets][180][Applets][190][Configuration]
-PreloadWeight=75
+PreloadWeight=80
 
 [Containments][56][Applets][180][Applets][191]
 immutability=1
@@ -296,7 +297,7 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][56][Applets][180][Applets][197][Configuration]
-PreloadWeight=35
+PreloadWeight=61
 
 [Containments][56][Applets][180][Applets][198]
 immutability=1
@@ -321,7 +322,7 @@ plugin=org.kde.plasma.systemmonitor
 
 [Containments][56][Applets][199][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=85
+PreloadWeight=90
 popupHeight=209
 popupWidth=199
 

@@ -69,6 +69,7 @@ firewalld
 flatpak
 fwupd
 gdb
+gemini-cli
 git
 git-delta
 glances
@@ -195,6 +196,7 @@ rebuild-detector
 reflector
 reflector-simple
 rsync
+rt-tests
 rtkit
 s-nail
 sddm-kcm
@@ -224,6 +226,7 @@ upower
 usb_modeswitch
 usbutils
 uv
+valgrind
 vi
 vim
 virt-manager
