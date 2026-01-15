@@ -39,6 +39,11 @@
     "body": "uint64_t",
     "description": "uint64_t type"
   },
+  "byte": {
+    "prefix": "byte",
+    "body": "std::byte",
+    "description": "byte type"
+  },
   "size_t": {
     "prefix": "sz",
     "body": "size_t",
@@ -306,5 +311,55 @@
     "prefix": "stas",
     "body": "static_assert(${1:condition}, \"${2:message}\");",
     "description": "static_assert"
+  },
+  "section doc": {
+    "prefix": "docs",
+    "body": [
+      "// ============================================================================",
+      "// ${1:Title}",
+      "// ============================================================================"
+    ],
+    "description": "section Document"
+  },
+  "Doxygen File Header": {
+    "prefix": "docf",
+    "body": [
+      "/**",
+      " * @file ${TM_FILENAME}",
+      " * @author ${1:Your Name}",
+      " * @brief ${2:Description of this file}",
+      " * @version 0.1",
+      " * @date ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " * ",
+      " * @copyright Copyright (c) ${CURRENT_YEAR}",
+      " * ",
+      " */",
+      "$0"
+    ],
+    "description": "Doxygen file document"
+  },
+  "Doxygen Function": {
+    "prefix": "docm",
+    "body": [
+      "/**",
+      " * @brief ${1:Desc}",
+      " * ",
+      " * @param ${2:arg} ${3:ArgDesc}",
+      " * @return ${4:ReturnType} ${5:ReturnTypeDesc}",
+      " */"
+    ],
+    "description": "Doxygen function/method docutment"
+  },
+  "Doxygen Class": {
+    "prefix": "docc",
+    "body": [
+      "/**",
+      " * @class ${1:ClassName}",
+      " * @brief ${2:Brief}",
+      " * ",
+      " * ${3:Detail}",
+      " */"
+    ],
+    "description": "Doxygen class document"
   }
 }
