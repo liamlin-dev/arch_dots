@@ -5,7 +5,7 @@
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
-      "enabled": false,
+      "enabled": true,
     },
     "memory": {
       "type": "local",
@@ -14,7 +14,7 @@
         "-y",
         "@modelcontextprotocol/server-memory"
       ],
-      "enabled": false,
+      "enabled": true,
     }
   }
 }
