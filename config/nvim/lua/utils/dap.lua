@@ -1,18 +1,54 @@
 local M = {}
 
+local EXCLUDE_PATTERNS = {
+  -- 目錄
+  "_deps",
+  "CMakeFiles",
+  ".git",
+  -- 副檔名
+  "*.py",
+  "*.sh",
+  "*.cmake",
+  "*.txt",
+  "*.json",
+}
+
 M.get_executable = function()
   local dap = require("dap")
   local fzf = require("fzf-lua")
+
+  local exclude_args = ""
+  for _, pattern in ipairs(EXCLUDE_PATTERNS) do
+    exclude_args = exclude_args .. string.format(" --exclude %q", pattern)
+  end
+
   return coroutine.create(function(coro)
-    fzf.fzf_exec("find build -type f -executable", {
-      prompt = "Select Executable> ",
+    local cmd = string.format("fd -tx%s . build/", exclude_args)
+
+    fzf.fzf_exec(cmd, {
+      prompt = "Debug Executable> ",
+      winopts = {
+        height = 0.4,
+        width = 0.6,
+        row = 0.5,
+      },
       actions = {
         ["default"] = function(selected)
+          -- 處理 ESC
           if not selected or #selected == 0 then
             coroutine.resume(coro, dap.ABORT)
-          else
-            coroutine.resume(coro, selected[1])
+            return
           end
+
+          -- 移除 fzf 可能產生的首尾空白或索引文字
+          -- fzf-lua 預設回傳第一個元素即為路徑
+          local entry = selected[1]
+          local path = entry:match("^%s*(.-)%s*$")
+
+          -- 轉換為絕對路徑
+          local full_path = vim.fn.getcwd() .. "/" .. path
+
+          coroutine.resume(coro, full_path)
         end,
       },
     })
