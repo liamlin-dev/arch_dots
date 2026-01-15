@@ -92,7 +92,7 @@ plugin=org.kde.plasma.colorpicker
 
 [Containments][56][Applets][125][Configuration]
 PreloadWeight=100
-popupHeight=324
+popupHeight=325
 popupWidth=324
 
 [Containments][56][Applets][125][Configuration][ConfigDialog]
@@ -297,7 +297,7 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][56][Applets][180][Applets][197][Configuration]
-PreloadWeight=61
+PreloadWeight=53
 
 [Containments][56][Applets][180][Applets][198]
 immutability=1
