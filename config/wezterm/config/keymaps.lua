@@ -7,8 +7,8 @@ local keys = {
     -- useful fn
     { key = 'F2',  mode = 'NONE',           action = act.ActivateCopyMode },
     { key = 'F3',  mode = 'NONE',           action = act.ShowLauncherArgs { flags = "LAUNCH_MENU_ITEMS|FUZZY" } },
-    { key = 'F11', mods = 'NONE',           action = act.ToggleFullScreen },
-    { key = 'F12', mods = 'NONE',           action = act.ShowDebugOverlay },
+    -- { key = 'F11', mods = 'NONE',           action = act.ToggleFullScreen },
+    -- { key = 'F12', mods = 'NONE',           action = act.ShowDebugOverlay },
 
     -- copy/paste
     { key = 'c',   mods = 'CTRL|SHIFT',     action = act.CopyTo('Clipboard') },

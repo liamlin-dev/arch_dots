@@ -10,7 +10,7 @@ local fonts = {
 	"LXGW WenKai TC",
 }
 
-local font_size = 13
+local font_size = 11
 
 return {
 	font = wezterm.font_with_fallback(fonts),
