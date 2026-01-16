@@ -1,6 +1,7 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = { "catppuccin/nvim" },
     event = "VeryLazy",
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
@@ -14,14 +15,26 @@ return {
     end,
     opts = function()
       local palette = require("catppuccin.palettes").get_palette("mocha")
-      local utils = require("utils.lualine")
+      local utils = require("util.lualine")
       local components = utils.components
 
       -- PERF: we don't need this lualine require madness 🤷
       local lualine_require = require("lualine_require")
       lualine_require.require = require
 
-      local icons = LazyVim.config.icons
+      local icons = {
+        git = {
+          added = " ",
+          modified = " ",
+          removed = " ",
+        },
+        diagnostics = {
+          Error = " ",
+          Warn = " ",
+          Hint = " ",
+          Info = " ",
+        },
+      }
 
       vim.o.laststatus = vim.g.lualine_laststatus
 
@@ -121,7 +134,8 @@ return {
               color = { bg = palette.mantle },
             },
             {
-              LazyVim.lualine.pretty_path(),
+              "filename",
+              path = 1,
             },
           },
 
@@ -246,7 +260,7 @@ return {
 
       -- do not add trouble symbols if aerial is enabled
       -- And allow it to be overriden for some buffer types (see autocmds)
-      if vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
+      if vim.g.trouble_lualine and require("util").has("trouble.nvim") then
         local trouble = require("trouble")
         local symbols = trouble.statusline({
           mode = "symbols",

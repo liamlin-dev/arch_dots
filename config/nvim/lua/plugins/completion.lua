@@ -1,6 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
+    version = "1.*",
     dependencies = {
       {
         "xzbdmw/colorful-menu.nvim",
@@ -8,7 +9,6 @@ return {
       },
       "kristijanhusak/vim-dadbod-completion",
       "fang2hou/blink-copilot",
-      "saghen/blink.cmp",
       "Kaiser-Yang/blink-cmp-avante",
     },
     opts = {
@@ -54,10 +54,7 @@ return {
       },
 
       signature = {
-        window = {
-          -- If this set true will cause ctrl + k not working. Just use noise stead.
-          show_documentation = false,
-        },
+        enabled = false, -- Let Noice handle signature help
       },
 
       keymap = {
