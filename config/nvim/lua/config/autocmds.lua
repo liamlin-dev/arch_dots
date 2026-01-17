@@ -124,12 +124,3 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
-
--- Force Normal Mode for Snacks Input
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("snacks_input_normal"),
-  pattern = "snacks_input",
-  callback = function()
-    vim.cmd("stopinsert")
-  end,
-})

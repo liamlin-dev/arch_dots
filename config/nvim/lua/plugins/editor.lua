@@ -1,5 +1,11 @@
 -- Editor enhancements
 return {
+  -- Cursor word highlight
+  -- builtin keymap:
+  --  1. <a-p>: prev
+  --  2. <a-n>: next
+  { "RRethy/vim-illuminate" },
+
   -- Surround operations
   {
     "echasnovski/mini.pairs",
@@ -21,6 +27,12 @@ return {
         update_n_lines = "gsn",
       },
     },
+  },
+
+  -- Breadcrumbs
+  {
+    "Bekaboo/dropbar.nvim",
+    config = true,
   },
 
   -- Todo comments
@@ -85,8 +97,6 @@ return {
     },
     opts = {},
   },
-
-
 
   -- Diagnostics panel
   {

@@ -57,17 +57,8 @@ return {
           map("n", "<leader>cr", vim.lsp.buf.rename, "Rename Symbol")
 
           -- Server specific keymaps
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          local server_opts = opts.servers[client.name]
-          if server_opts and server_opts.keys then
-            for _, key in ipairs(server_opts.keys) do
-              local mode = key.mode or "n"
-              local lhs = key[1]
-              local rhs = key[2]
-              local key_opts = { buffer = bufnr, desc = key.desc }
-              vim.keymap.set(mode, lhs, rhs, key_opts)
-            end
-          end
+          -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          -- local server_opts = opts.servers[client.name]
         end,
       })
 

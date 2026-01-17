@@ -18,10 +18,6 @@ return {
       local utils = require("util.lualine")
       local components = utils.components
 
-      -- PERF: we don't need this lualine require madness 🤷
-      local lualine_require = require("lualine_require")
-      lualine_require.require = require
-
       local icons = {
         git = {
           added = " ",
