@@ -43,7 +43,9 @@ opt.smartcase = true -- 但若輸入大寫則區分大小寫
 
 -- General
 opt.confirm = true -- 退出前若有未存檔，跳出確認視窗
+opt.swapfile = false -- 不要使用 swap file
 opt.autowrite = true -- 自動存檔 (切換 buffer 或編譯時)
+opt.autoread = true -- 自動讀取 (外部修改時)
 opt.undofile = true -- 保留 Undo 紀錄 (即便重開編輯器)
 opt.undolevels = 10000 -- 增加 Undo 記憶量
 opt.updatetime = 200 -- 加快更新頻率 (影響 CursorHold 事件，對外掛很重要)

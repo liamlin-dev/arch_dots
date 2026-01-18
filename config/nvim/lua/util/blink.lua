@@ -21,7 +21,7 @@ M.providers.dictionary = {
 
 M.menu = {
   auto_show = true,
-  border = "none",
+  border = "single",
   draw = {
     columns = { { "kind_icon" }, { "label", "source_id", gap = 1 } },
     components = {
@@ -40,7 +40,7 @@ M.menu = {
 
 M.doc = {
   window = {
-    border = "none",
+    border = "single",
   },
   auto_show = true,
   auto_show_delay_ms = 100,
