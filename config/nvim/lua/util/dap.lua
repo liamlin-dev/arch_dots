@@ -13,7 +13,7 @@ local EXCLUDE_PATTERNS = {
   "*.json",
 }
 
-M.get_executable = function()
+function get_executable()
   local dap = require("dap")
   local fzf = require("fzf-lua")
 
@@ -53,6 +53,40 @@ M.get_executable = function()
       },
     })
   end)
+end
+
+M.set_cpp = function()
+  local dap = require("dap")
+
+  dap.adapters.cppdbg = {
+    id = "cppdbg",
+    type = "executable",
+    command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7",
+  }
+
+  dap.configurations.cpp = {
+    {
+      name = "Launch (GDB)",
+      type = "cppdbg",
+      request = "launch",
+      program = get_executable,
+      cwd = "${workspaceFolder}",
+      stopAtEntry = false,
+      setupCommands = {
+        { text = "-enable-pretty-printing", description = "Enable pretty printing", ignoreFailures = false },
+        { text = "set follow-fork-mode child", description = "Follow fork", ignoreFailures = true },
+      },
+    },
+    {
+      name = "Attach to Process",
+      type = "cppdbg",
+      request = "attach",
+      processId = require("dap.utils").pick_process,
+      program = get_executable,
+      cwd = "${workspaceFolder}",
+    },
+  }
+  dap.configurations.c = dap.configurations.cpp
 end
 
 return M

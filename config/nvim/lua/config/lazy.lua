@@ -16,8 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Import all plugin specs
-  { import = "plugins" },
-  { import = "plugins.lang" },
+  spec = {
+    { import = "plugins" },
+  },
+
   defaults = {
     -- Set to `true` to lazy-load all custom plugins by default
     lazy = false,

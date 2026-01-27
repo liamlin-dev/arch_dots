@@ -76,11 +76,7 @@
   },
   "namespace": {
     "prefix": "ns",
-    "body": [
-      "namespace ${1:name} {",
-      "\t$0",
-      "}  // namespace $1"
-    ],
+    "body": ["namespace ${1:name} {", "\t$0", "}  // namespace $1"],
     "description": "Namespace with closing comment"
   },
   "smart pointer unique": {
@@ -154,11 +150,7 @@
   },
   "range for": {
     "prefix": "fora",
-    "body": [
-      "for (${1:auto}& ${2:item} : ${3:container}) {",
-      "\t$0",
-      "}"
-    ],
+    "body": ["for (${1:auto}& ${2:item} : ${3:container}) {", "\t$0", "}"],
     "description": "Range-based for loop with reference"
   },
   "range for const": {
@@ -250,11 +242,7 @@
   },
   "if constexpr": {
     "prefix": "ifc",
-    "body": [
-      "if constexpr (${1:condition}) {",
-      "\t$0",
-      "}"
-    ],
+    "body": ["if constexpr (${1:condition}) {", "\t$0", "}"],
     "description": "if constexpr statement"
   },
   "structured binding": {
@@ -312,54 +300,68 @@
     "body": "static_assert(${1:condition}, \"${2:message}\");",
     "description": "static_assert"
   },
-  "section doc": {
-    "prefix": "docs",
-    "body": [
-      "// ============================================================================",
-      "// ${1:Title}",
-      "// ============================================================================"
-    ],
-    "description": "section Document"
-  },
-  "Doxygen File Header": {
+  "File Doc (Standard)": {
     "prefix": "docf",
     "body": [
-      "/**",
-      " * @file ${TM_FILENAME}",
-      " * @author ${1:Your Name}",
-      " * @brief ${2:Description of this file}",
-      " * @version 0.1",
-      " * @date ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
-      " * ",
-      " * @copyright Copyright (c) ${CURRENT_YEAR}",
-      " * ",
-      " */",
-      "$0"
+      "/// @file ${TM_FILENAME}",
+      "/// @brief ${1:High-level overview of this module}",
+      "///",
+      "/// ${2:Detailed description. Explain the purpose and scope of this file.}",
+      "///",
+      "/// @author ${3:Liam Lin}",
+      "/// @date ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "///"
     ],
-    "description": "Doxygen file document"
+    "description": "[File] Standard: Includes detail, author, and date"
   },
-  "Doxygen Function": {
-    "prefix": "docm",
-    "body": [
-      "/**",
-      " * @brief ${1:Desc}",
-      " * ",
-      " * @param ${2:arg} ${3:ArgDesc}",
-      " * @return ${4:ReturnType} ${5:ReturnTypeDesc}",
-      " */"
-    ],
-    "description": "Doxygen function/method docutment"
-  },
-  "Doxygen Class": {
+  "Class Doc": {
     "prefix": "docc",
     "body": [
-      "/**",
-      " * @class ${1:ClassName}",
-      " * @brief ${2:Brief}",
-      " * ",
-      " * ${3:Detail}",
-      " */"
+      "/// @brief ${1:Primary responsibility of this class}",
+      "///",
+      "/// ${2:Design Rationale: Why does this class exist? What pattern does it use?}",
+      "///"
     ],
-    "description": "Doxygen class document"
+    "description": "[Class] Standard: Includes Design, Usage Example, and Safety Notes"
+  },
+  "Function Doc (Simple)": {
+    "prefix": "docm",
+    "body": [
+      "/// @brief ${1:What does this function do?}",
+      "/// @param ${2:arg} ${3:Desc}",
+      "/// @return ${4:Desc}",
+      "///"
+    ],
+    "description": "[Function] Simple: Brief, params, return"
+  },
+  "Function Doc (Standard)": {
+    "prefix": "docmx",
+    "body": [
+      "/// @brief ${1:Short summary}",
+      "///",
+      "/// ${2:Detailed behavior description. Mention edge cases or algorithms used.}",
+      "///",
+      "/// @param ${4:arg} ${5:Description}",
+      "/// @return ${6:Description}",
+      "/// @note ${7:Note}",
+      "/// @warning ${8:Warning}",
+      "///",
+      "/// ### Example",
+      "/// ```cpp",
+      "/// ${3:// auto result = func(args);}",
+      "/// ```",
+      "///"
+    ],
+    "description": "[Function] Standard: Includes Detail, Example, Params, Return, Throws"
+  },
+  "Section Divider": {
+    "prefix": "docs",
+    "body": [
+      "// ----------------------------------------------------------------------------",
+      "// ${1:Section Name}",
+      "// ----------------------------------------------------------------------------",
+      ""
+    ],
+    "description": "Visual separator for code sections"
   }
 }

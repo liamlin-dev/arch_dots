@@ -1,5 +1,9 @@
+-- 啟用 LSP Server 步驟
+-- 1. 在下方 vim.lsp.enable 添加 Server (啟用)
+-- 2. 因為有設定 nvim-lspconfig 故會抓取 default lsp 設置
+-- 3. (Opt) 自行設定的話先去 nvim-lspconfig repo 中找到 lsp/ 裡面對應的設置，複製到 after/lsp 中後進行修改
+
 return {
-  -- LSP Config
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -7,16 +11,11 @@ return {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
-    opts = {
-      -- Default diagnostics config
-      diagnostics = {
+    config = function()
+      -- Configure diagnostics
+      vim.diagnostic.config({
         underline = true,
         update_in_insert = false,
-        -- virtual_text = {
-        --   spacing = 4,
-        --   source = "if_many",
-        --   prefix = "●",
-        -- },
         severity_sort = true,
         signs = {
           text = {
@@ -26,72 +25,54 @@ return {
             [vim.diagnostic.severity.INFO] = "",
           },
         },
-      },
-      -- Servers are merged from other plugins (e.g., lang/cpp.lua)
-      servers = {},
-    },
-    config = function(_, opts)
-      -- Configure diagnostics
-      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+      })
 
-      -- LspAttach event for keymaps
+      -- Set global capabilities for all LSP servers
+      -- This ensures blink.cmp completion works with all servers
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+
+      -- LspAttach event for keymaps and buffer-local configuration
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
         callback = function(ev)
           local bufnr = ev.buf
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
           local map = function(mode, lhs, rhs, desc)
             vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = "LSP: " .. desc })
           end
 
+          -- stylua: ignore start
           -- Navigation (gd, gr, gi, gt handled by fzf-lua in core.lua)
           map("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
 
           -- Documentation
-          map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
-          map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Help")
-          map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature Help")
+          -- 只在 normal mode 下不然會影響打字
+          map("n", "K", function() vim.lsp.buf.hover({ border = "single" }) end, "Hover Documentation")
+          -- 只在 insert mode 下不然會影響窗口移動
+          map({"i"}, "<C-k>", function() vim.lsp.buf.signature_help({ border = "single" }) end, "Signature Help")
 
           -- Actions
           map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("v", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("n", "<leader>cr", vim.lsp.buf.rename, "Rename Symbol")
+          -- stylua: ignore end
 
-          -- Server specific keymaps
-          -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          -- local server_opts = opts.servers[client.name]
+          -- Client-specific keymaps
+          if client and client.name == "clangd" then
+            map("n", "<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", "Switch Header/Source")
+          end
         end,
       })
 
-      -- Build capabilities
-      local servers = opts.servers
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      -- Add blink.cmp capabilities
-      capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-
-      -- Server setup function
-      local function setup(server)
-        local server_opts = servers[server] or {}
-
-        local final_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, server_opts)
-
-        require("lspconfig")[server].setup(final_opts)
-      end
-
-      -- Mason-lspconfig integration
-      local mlsp = require("mason-lspconfig")
-      local ensure_installed = {}
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          table.insert(ensure_installed, server)
-        end
-      end
-
-      mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
+      -- Enable LSP servers
+      vim.lsp.enable({ "clangd", "basedpyright", "bashls", "neocmake", "lua_ls" })
     end,
   },
-  { "williamboman/mason.nvim", cmd = "Mason", build = ":MasonUpdate", opts = {} },
-  { "williamboman/mason-lspconfig.nvim" },
+
+  { "williamboman/mason.nvim", cmd = "Mason", build = ":MasonUpdate", config = true },
 }

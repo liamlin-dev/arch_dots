@@ -21,6 +21,14 @@ return {
         json = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
         markdown = { "prettierd", "prettier", stop_after_first = true },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
+        zsh = { "shfmt" },
+        toml = { "taplo" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
+        cmake = { "gersemi" },
+        python = { "ruff_format" },
       },
       -- Format on save
       format_on_save = {

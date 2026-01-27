@@ -20,22 +20,14 @@ return {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
         },
-        -- Enable signature help via noice
+
+        -- noice 的 lsp 格式不好看，原生的已經夠好用
         signature = {
-          enabled = true,
-          auto_open = {
-            enabled = true,
-            trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
-            luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
-            throttle = 50, -- Debounce lsp signature help request by 50ms
-          },
+          enabled = false,
           view = "hover", -- or "popup"
-          opts = {}, -- extra opts for the view
         },
         hover = {
-          enabled = true,
-          view = nil, -- when nil, use defaults from documentation
-          opts = {}, -- merged with defaults from documentation
+          enabled = false,
         },
       },
       presets = {
