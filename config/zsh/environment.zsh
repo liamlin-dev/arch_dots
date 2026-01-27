@@ -6,6 +6,10 @@ source "$HOME/.config/zsh/functions.zsh"
 add_path "$HOME/.local/bin"
 add_path "$HOME/.local/share/nvim/mason/bin"
 
+# llvm
+export LLVM_HOME="$HOME/.local/LLVM-22.1.0-rc1-Linux-X64"
+add_path "$LLVM_HOME/bin"
+
 # nodejs
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
