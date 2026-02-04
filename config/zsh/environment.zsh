@@ -6,9 +6,11 @@ source "$HOME/.config/zsh/functions.zsh"
 add_path "$HOME/.local/bin"
 add_path "$HOME/.local/share/nvim/mason/bin"
 
-# llvm
+# C/C++
 export LLVM_HOME="$HOME/.local/LLVM-22.1.0-rc1-Linux-X64"
 add_path "$LLVM_HOME/bin"
+export VCPKG_ROOT="$HOME/.local/vcpkg"
+add_path "$VCPKG_ROOT"
 
 # nodejs
 export NVM_DIR="$HOME/.nvm"

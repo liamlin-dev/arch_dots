@@ -19,6 +19,10 @@ function zi() {
 
 # gb: Git 分支快速切換 (git + fzf)
 function gb() {
+  if [[ "$1" == "-f" ]]; then
+    echo "Fetching all..."
+    git fetch --all --prune # 更新本地倉庫並刪除遠端以刪除的分支
+  fi
   local branch
   branch=$(
     # 列出所有本地/遠端分支，且不包含 HEAD 指針
@@ -27,21 +31,21 @@ function gb() {
       --no-sort \
       --reverse \
       --header "Select branch to checkout" \
-      --preview 'echo {} | awk "{print \$NF}" | xargs -I{} git log -10 --pretty=format:"%C(yellow)%h%Creset %s (%an, %ar)" --graph {}' \
+      --preview 'git log -10 --pretty=format:"%C(yellow)%h%Creset %s (%an, %ar)" --graph $(echo {} | sed "s/.* //")' \
       --bind 'ctrl-s:toggle-sort' |
       awk '{print $NF}'
   )
 
   if [[ -n "$branch" ]]; then
     # 檢查是否為遠端分支 (e.g., remotes/origin/main)
-    if [[ "$branch" =~ ^remotes/ ]]; then
+    if [[ "$branch" == remotes/* ]]; then
       # 將遠端分支轉換成本地分支名稱 (例如: remotes/origin/feature -> feature)
-      local local_branch="${branch#remotes/*/}"
-      # checkout 遠端分支，並建立/切換到同名本地分支
-      git checkout -B "$local_branch" "$branch"
+      local remote_name=$(echo "$branch" | cut -d'/' -f3-)
+      echo "Switching to remote track: $remote_name"
+      git switch "$remote_name"
     else
-      # 直接 checkout 本地分支
-      git checkout "$branch"
+      # 本地分支直接切換
+      git switch "$branch"
     fi
   fi
 }
@@ -128,22 +132,62 @@ function fman() {
   fi
 }
 
-# fmenu: FZF 整合選單
-function fmenu() {
-  local choice
-  # fconf 函式沒有定義在您的原始碼中，這裡假設它存在，或您可以替換成其他功能
-  choice=$(printf "config (fconf)\nman (fman)\ndocs (fdoc)\nall-files (fzf)" | fzf --prompt="Menu > ")
+# frun: 模糊尋找並執行當前目錄下的可執行檔
+function frun() {
+  local exe
 
-  case $choice in
-  *config*)  # 匹配包含 'config' 的行
-    fconf ;; # 假設 fconf 存在
-  *man*)     # 匹配包含 'man' 的行
-    fman ;;
-  *docs*) # 匹配包含 'docs' 的行
-    fdoc ;;
-  *all-files*) # 匹配包含 'all-files' 的行
-    # 直接執行 fzf 進行遞迴文件搜尋，並使用 bat 預覽
-    fzf --preview 'bat --style=numbers --color=always {}'
-    ;;
-  esac
+  # 搜尋邏輯說明:
+  # find . -type f: 找檔案
+  # -executable: 必須有執行權限 (Linux/macOS 支援)
+  # -not -path '*/.*': 排除隱藏目錄 (如 .git, .vscode)
+  # 2>/dev/null: 忽略權限錯誤訊息
+  exe=$(
+    find . -type f -executable \
+      -not -path '*/.*' \
+      -not -path '*/node_modules/*' \
+      2>/dev/null |
+      fzf --prompt="Run > " \
+        --header="Select an executable to run" \
+        --preview 'if file --mime {} | grep -q "binary"; then
+                     file -b {} # 如果是二進位檔，顯示檔案資訊
+                   else
+                     bat --style=numbers --color=always {} || cat {} # 如果是文字檔，顯示內容
+                   fi' \
+        --preview-window=right:60%
+  )
+
+  # 如果有選取檔案，則執行它
+  if [[ -n "$exe" ]]; then
+    # "$@" 允許你執行 frun arg1 arg2，這些參數會被傳遞給選中的程式
+    echo "Running: $exe $@"
+    "$exe" "$@"
+  fi
+}
+
+# fexe: 模糊尋找當前目錄下的可執行檔並返回其路徑
+function fexe() {
+  local exe
+
+  # 搜尋邏輯：
+  # 1. 尋找具備執行權限的檔案
+  # 2. 排除常見的隱藏資料夾與版本控制目錄
+  exe=$(
+    find . -type f -executable \
+      -not -path '*/.*' \
+      -not -path '*/node_modules/*' \
+      2>/dev/null |
+      fzf --prompt="Select Executable > " \
+        --header="Tab to select, Enter to return path" \
+        --preview 'if file --mime {} | grep -q "binary"; then
+                       file -b {}
+                     else
+                       (bat --style=numbers --color=always {} || cat {}) 2>/dev/null | head -100
+                     fi' \
+        --preview-window=right:60%
+  )
+
+  # 如果有選取，則輸出路徑並將其放入剪貼簿
+  if [[ -n "$exe" ]]; then
+    echo "$exe"
+  fi
 }
