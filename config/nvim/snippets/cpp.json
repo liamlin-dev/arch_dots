@@ -354,7 +354,18 @@
     ],
     "description": "[Function] Standard: Includes Detail, Example, Params, Return, Throws"
   },
-  "Section Divider": {
+
+  "Section Divider H1": {
+    "prefix": "docsx",
+    "body": [
+      "// ============================================================================",
+      "// ${1:Section Name}",
+      "// ============================================================================",
+      ""
+    ],
+    "description": "Visual separator for code sections"
+  },
+  "Section Divider H2": {
     "prefix": "docs",
     "body": [
       "// ----------------------------------------------------------------------------",

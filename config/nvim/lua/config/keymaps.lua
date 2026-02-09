@@ -3,9 +3,9 @@
 local map = vim.keymap.set
 
 -- Better copy & paste
-map("n", "x", [["_x]], { desc = "Delete Single Word" })
-map("x", "x", [["_d]], { desc = "Delete Selection" })
-map("x", "p", [["_dP]], { desc = "Paste" }) -- using "P" to paste and copy
+map("n", "x", [["_x]], { desc = "Delete Character without yanking" })
+map("x", "x", [["_d]], { desc = "Delete Selection without yanking" })
+map("x", "p", [["_dP]], { desc = "Paste without overwriting register" })
 
 -- Better up/down (wrapped lines)
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })

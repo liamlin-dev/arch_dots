@@ -1,3 +1,4 @@
+7zip
 accountsservice
 alsa-firmware
 alsa-plugins
@@ -17,6 +18,7 @@ bpf
 breeze-gtk
 btop
 btrfs-progs
+bun
 cantarell-fonts
 ccache
 cgdb

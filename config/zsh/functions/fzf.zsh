@@ -163,31 +163,3 @@ function frun() {
     "$exe" "$@"
   fi
 }
-
-# fexe: 模糊尋找當前目錄下的可執行檔並返回其路徑
-function fexe() {
-  local exe
-
-  # 搜尋邏輯：
-  # 1. 尋找具備執行權限的檔案
-  # 2. 排除常見的隱藏資料夾與版本控制目錄
-  exe=$(
-    find . -type f -executable \
-      -not -path '*/.*' \
-      -not -path '*/node_modules/*' \
-      2>/dev/null |
-      fzf --prompt="Select Executable > " \
-        --header="Tab to select, Enter to return path" \
-        --preview 'if file --mime {} | grep -q "binary"; then
-                       file -b {}
-                     else
-                       (bat --style=numbers --color=always {} || cat {}) 2>/dev/null | head -100
-                     fi' \
-        --preview-window=right:60%
-  )
-
-  # 如果有選取，則輸出路徑並將其放入剪貼簿
-  if [[ -n "$exe" ]]; then
-    echo "$exe"
-  fi
-}

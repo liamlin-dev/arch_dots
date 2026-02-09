@@ -70,7 +70,7 @@ return {
       })
 
       -- Enable LSP servers
-      vim.lsp.enable({ "clangd", "basedpyright", "bashls", "neocmake", "lua_ls" })
+      vim.lsp.enable({ "clangd", "basedpyright", "bashls", "neocmake", "lua_ls", "jsonls" })
     end,
   },
 

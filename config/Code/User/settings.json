@@ -54,17 +54,14 @@
   "editor.autoClosingOvertype": "always",
   "editor.quickSuggestionsDelay": 0,
   "editor.parameterHints.enabled": true,
-
   // -------------------------- terminal --------------------------------
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.gpuAcceleration": "on", // 確保終端機渲染夠快
   "terminal.integrated.rightClickBehavior": "paste",
   "terminal.integrated.smoothScrolling": false, // 終端機平滑滾動
-
   // -------------------------- themes ----------------------------------
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "symbols",
-
   // -------------------------- fonts ------------------------------------
   "editor.fontFamily": "'JetBrainsMono Nerd Font','LXGW WenKai Mono TC','CaskaydiaCove Nerd Font'",
   "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font','LXGW WenKai Mono TC','CaskaydiaCove Nerd Font'",
@@ -73,7 +70,6 @@
   "editor.fontLigatures": false,
   "catppuccin.italicKeywords": false,
   "catppuccin.italicComments": false,
-
   // ---------------------------- exclude files -------------------------------------
   "files.exclude": {
     "**/obj": true,
@@ -98,15 +94,12 @@
     "**/*.a": true,
     "**/*.so": true,
   },
-
   // ---------------------------- search -----------------------------------
   "search.showLineNumbers": true,
   "search.smartCase": true,
-
   // ---------------------------- Misc -------------------------------------
   "files.trimTrailingWhitespace": true,
   "security.workspace.trust.untrustedFiles": "open",
-
   // ---------------------------- Vim --------------------------------------
   "keyboard.dispatch": "keyCode", // 這必須要設置，不然 vscode 讀不到系統的 remap
   "vim.easymotion": false,
@@ -125,18 +118,20 @@
   },
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<Esc>"],
-      "commands": [":nohl"],
+      "before": [
+        "<Esc>"
+      ],
+      "commands": [
+        ":nohl"
+      ],
     },
   ],
   "vim.insertModeKeyBindings": [],
-
   // ---------------------------- debug ----------------------------------
   "debug.console.fontSize": 12,
   "debug.console.wordWrap": true,
   "debug.inlineValues": "on", // 偵錯時直接在代碼旁邊顯示變數值
   "debug.focusEditorOnBreak": true,
-
   // ---------------------------- Lang -------------------------------------
   // python
   "python.analysis.typeCheckingMode": "strict",
@@ -170,14 +165,12 @@
     },
   },
   "cmake.useCMakePresets": "always",
-
   // shell
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
   },
-
   // Git
   "git.autofetch": true,
   "git.mergeEditor": true,
