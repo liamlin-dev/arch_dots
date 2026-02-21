@@ -94,18 +94,20 @@ function fssh() {
 # fdoc: 模糊文件瀏覽 (find + fzf + bat)
 function fdoc() {
   local file
-  # 搜尋 /usr/share/doc 下的所有文件
-  # 預覽視窗: 使用 bat 進行語法高亮和行號顯示
   file=$(
     find /usr/share/doc -type f 2>/dev/null |
-      fzf --height 60% \
-        --prompt "Doc > "
-    --preview 'bat --style=numbers --color=always {}'
+      fzf --height 100% \
+        --prompt "Doc > " \
+        --preview '
+          if [[ {} == *.gz ]]; then
+            zcat {} | bat -l md --color=always --style=-numbers
+          else
+            bat --color=always --style=-numbers {}
+          fi
+        '
   )
 
-  # 檢查是否有選取文件，若有則使用 $EDITOR 或 nano 開啟
-  # 確保 $EDITOR 有預設值 (nano)
-  [[ -n "$file" ]] && ${EDITOR:-nano} "$file"
+  [[ -n "$file" ]] && ${EDITOR:-vim} "$file"
 }
 
 # fman: 模糊 man 手冊頁查詢 (man -k + fzf)
@@ -118,9 +120,9 @@ function fman() {
       awk '{printf "%-30s %s\n", $1, $2}' |
       sort -k1,1 -V |
       uniq |
-      fzf --height=70% \
+      fzf --height=100% \
         --prompt="Man > " \
-        --preview 'echo {} | awk "{print \$1 \" \" \$2}" | tr -d "()" | xargs man 2>/dev/null | col -bx'
+        --preview 'man {2} {1} 2>/dev/null | bat -l man --color=always --style=-numbers'
   )
 
   if [[ -n "$page" ]]; then
@@ -128,7 +130,7 @@ function fman() {
     name=$(echo "$page" | awk '{print $1}')
     section=$(echo "$page" | awk '{print $2}' | tr -d '()')
 
-    man "$section" "$name"
+    man "$section" "$name" | bat -l man --style=-numbers
   fi
 }
 
@@ -136,30 +138,61 @@ function fman() {
 function frun() {
   local exe
 
-  # 搜尋邏輯說明:
-  # find . -type f: 找檔案
-  # -executable: 必須有執行權限 (Linux/macOS 支援)
-  # -not -path '*/.*': 排除隱藏目錄 (如 .git, .vscode)
-  # 2>/dev/null: 忽略權限錯誤訊息
   exe=$(
     find . -type f -executable \
       -not -path '*/.*' \
       -not -path '*/node_modules/*' \
+      -not -path '*/build/*/*/*.o' \
       2>/dev/null |
       fzf --prompt="Run > " \
         --header="Select an executable to run" \
-        --preview 'if file --mime {} | grep -q "binary"; then
-                     file -b {} # 如果是二進位檔，顯示檔案資訊
-                   else
-                     bat --style=numbers --color=always {} || cat {} # 如果是文字檔，顯示內容
-                   fi' \
-        --preview-window=right:60%
+        --preview '
+          if file --mime-encoding {} | grep -q "binary"; then
+            # 基本檔案資訊 (大小)
+            echo -e "\033[1;33m==== File Info ====\033[0m"
+            echo -n "  Size: "
+            ls -lh {} | awk "{print \$5}"
+
+            # ELF 標頭與架構
+            echo -e "\n\033[1;36m==== Architecture ====\033[0m"
+            readelf -h {} 2>/dev/null | grep -E "Class:|Machine:|Type:|Entry point" | sed "s/^[ \t]*/  /"
+
+            # 編譯器資訊 (.comment section 通常會記錄 GCC/Clang 版本)
+            echo -e "\n\033[1;35m==== Compiler Version ====\033[0m"
+            readelf -p .comment {} 2>/dev/null | grep -oE "(GCC|clang version).*" | head -n 1 | sed "s/^/  /" || echo "  (Unknown/Stripped)"
+
+            # 編譯與安全防護 (Hardening & Debug)
+            echo -e "\n\033[1;32m==== Build & Hardening ====\033[0m"
+            if readelf -S {} 2>/dev/null | grep -q "\.debug_info"; then
+              echo -e "  [+] Debug Info:   \033[32mPresent\033[0m"
+            else
+              echo -e "  [-] Debug Info:   \033[31mStripped\033[0m"
+            fi
+            # 檢查是否有 Stack Canary (緩衝區溢位保護)
+            if nm {} 2>/dev/null | grep -q "__stack_chk_fail"; then
+              echo -e "  [+] Stack Canary: \033[32mEnabled\033[0m"
+            else
+              echo -e "  [-] Stack Canary: \033[31mDisabled\033[0m"
+            fi
+
+            # 動態庫與路徑 (CMake 專案中 RPATH/RUNPATH 設錯常導致 lib 找不到)
+            echo -e "\n\033[1;34m==== Linkage & RPATH ====\033[0m"
+            # 優先高亮顯示 RPATH
+            readelf -d {} 2>/dev/null | grep -E "(RPATH|RUNPATH)" | sed -r "s/.*\[(.*)\].*/  ★ \1 (RPATH)/"
+            readelf -d {} 2>/dev/null | grep "NEEDED" | sed -r "s/.*\[(.*)\].*/  - \1/" || echo "  (Static or no dependencies)"
+
+            # 核心符號表
+            echo -e "\n\033[1;36m==== Top Symbols (Demangled) ====\033[0m"
+            readelf -W -s {} 2>/dev/null | awk "NF>=8 {print \$8}" | grep -vE "^(_|@)" | head -n 15 | sed "s/^/  /" | c++filt
+          else
+            bat --style=numbers --color=always {} 2>/dev/null || cat {}
+          fi' \
+        --preview-window=right:65%
   )
 
-  # 如果有選取檔案，則執行它
+  # 執行所選的檔案，並支援傳入額外參數
   if [[ -n "$exe" ]]; then
-    # "$@" 允許你執行 frun arg1 arg2，這些參數會被傳遞給選中的程式
-    echo "Running: $exe $@"
+    echo -e "\033[1;32mRunning:\033[0m $exe $@"
     "$exe" "$@"
   fi
 }
