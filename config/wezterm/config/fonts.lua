@@ -7,7 +7,8 @@ local fonts = {
 		harfbuzz_features = { "calt=0", "clig=0", "liga=0" }, -- no ligature
 	},
 	"CaskaydiaCove Nerd Font",
-	"LXGW WenKai TC",
+	-- "LXGW WenKai TC",
+	"LXGW WenKai Mono TC",
 }
 
 local font_size = 11
