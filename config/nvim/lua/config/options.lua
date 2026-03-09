@@ -7,6 +7,7 @@ vim.g.maplocalleader = "\\"
 vim.g.have_nerd_font = false
 
 -- Clipboard
+vim.g.clipboard = "osc52" -- support remote copy
 opt.clipboard = "unnamedplus"
 
 -- UI
@@ -19,6 +20,7 @@ opt.laststatus = 3 -- 全局狀態列
 opt.showmode = false -- 不在下方顯示 mode
 opt.scrolloff = 4 -- 游標上下保留 n 行緩衝
 opt.sidescrolloff = 8 -- 游標左右保留 n 字元緩衝
+opt.mouse = "a" -- 啟用滑鼠控制
 
 -- Split
 opt.splitbelow = true -- 新視窗開在下方

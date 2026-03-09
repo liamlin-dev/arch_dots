@@ -221,6 +221,7 @@ sysstat
 systemd-sysvcompat
 texinfo
 tldr
+tlp
 tmux
 trash-cli
 ttf-bitstream-vera
