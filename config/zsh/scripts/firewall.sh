@@ -1,5 +1,5 @@
 #!/bin/bash
-# /etc/iptables/rules.sh
+
 set -euo pipefail
 
 log() {

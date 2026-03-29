@@ -27,7 +27,7 @@ if command -v eza &>/dev/null; then
   alias -- lt="eza --tree"
   alias -- lR="eza -lR"
 else
-  log "missing eza"
+  log_warning "missing eza"
 fi
 
 # cd
@@ -35,7 +35,7 @@ if command -v z &>/dev/null; then
   alias -- cd="z"
   alias -- zi='_zoxide_zi'
 else
-  log "missing zoxide"
+  log_warning "missing zoxide"
 fi
 
 # trash-cli
@@ -44,14 +44,14 @@ if command -v trash-put &>/dev/null; then
   alias -- emptytrash="trash-empty"
   alias -- undel="trash-restore"
 else
-  log "missing trash-cli"
+  log_warning "missing trash-cli"
 fi
 
 # rg
 if command -v rg &>/dev/null; then
   alias -- rg="rg --hidden --smart-case --glob='!.git/' --no-search-zip --trim --colors=line:fg:black --colors=line:style:bold --colors=path:fg:magenta --colors=match:style:nobold"
 else
-  log "missing ripgrep"
+  log_warning "missing ripgrep"
 fi
 
 # tmux
@@ -62,26 +62,32 @@ if command -v tmux &>/dev/null; then
   alias -- tk="tmux_kill_fzf"
   alias -- ts='tmux attach -t $(tmux ls | fzf | awk -F: "{print \$1}")'
 else
-  log "missing tmux"
+  log_warning "missing tmux"
 fi
 
 # lazygit
 if command -v lazygit &>/dev/null; then
   alias -- lzg="lazygit"
 else
-  log "missing lazygit"
+  log_warning "missing lazygit"
+fi
+
+if command -v micromamba &>/dev/null; then
+  alias -- mm="micromamba"
+else
+  log_warning "missing micromamba"
 fi
 
 # lazydocker
 # if command -v lazygit &>/dev/null; then
 #   alias -- lzd="lazydocker"
 # else
-#   log "missing lazydocker"
+#   log_warning "missing lazydocker"
 # fi
 
 # git
 if command -v git &>/dev/null; then
-  alias -- gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n"'
+  alias -- gl='git log_warning --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n"'
   alias -- gs="git status --short"
 
   alias -- ga="git add"
@@ -100,7 +106,7 @@ if command -v git &>/dev/null; then
   alias -- gt="git stash"
   alias -- gtp="git stash pop"
 else
-  log "missing git"
+  log_warning "missing git"
 fi
 
 # docker
@@ -108,15 +114,15 @@ fi
 #   alias -- dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.ID}}\t{{.Image}}\t{{.Size}}"'
 #   alias -- dsh="docker exec -it"
 #   alias -- db="docker buildx build -f"
-#   alias -- dl="docker logs -f --tail=100"
+#   alias -- dl="docker log_warnings -f --tail=100"
 #   alias -- dc="docker compose"
 # else
-#   log "missing docker"
+#   log_warning "missing docker"
 # fi
 
 # kubernetes
 # if command -v docker &>/dev/null; then
 #   alias -- k='kubectl'
 # else
-#   log "missing kubectl"
+#   log_warning "missing kubectl"
 # fi
