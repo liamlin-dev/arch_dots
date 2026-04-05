@@ -84,16 +84,19 @@ gst-libav
 gst-plugin-pipewire
 gst-plugins-bad
 gst-plugins-ugly
+guestfs-tools
 gwenview
 haruna
 haveged
 hdparm
+helix
 hwdetect
 hwinfo
 inetutils
 intel-ucode
 inxi
 iptables-nft
+iw
 iwd
 jfsutils
 jq
@@ -112,6 +115,7 @@ kio-admin
 kio-extras
 kio-fuse
 konsole
+krdp
 kscreen
 kubectl
 kwallet-pam
@@ -123,6 +127,7 @@ less
 libappindicator
 libdvdcss
 libgsf
+libguestfs
 libopenraw
 libwnck3
 linux
@@ -260,6 +265,7 @@ xsettingsd
 xterm
 yay
 yazi
+zellij
 zip
 zoxide
 zsh

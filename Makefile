@@ -44,7 +44,7 @@ upgrade:
 flatpak-upgrade:
 	@if $(CHECK_FLATPAK_INSTALLED); then \
 		echo "🔃 Upgrading Flatpak packages..."; \
-		flatpak update -y; \
+		sudo flatpak update -y; \
 		make flatpak-refresh; \
 	else \
 		echo "🔃 Flatpak not installed. Skipping Flatpak upgrade."; \

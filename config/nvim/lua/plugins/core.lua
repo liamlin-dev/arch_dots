@@ -18,7 +18,7 @@ return {
       -- stylua: ignore start
       ensure_installed = {
         "bash", "c", "cpp", "lua", "luadoc", "markdown", "markdown_inline", "python",
-        "rust", "vim", "vimdoc", "json", "yaml", "cmake"
+        "rust", "vim", "vimdoc", "json", "yaml", "cmake", "make", "toml"
       },
       -- stylua: ignore end
       highlight = { enable = true },
