@@ -72,12 +72,6 @@ else
   log_warning "missing lazygit"
 fi
 
-if command -v micromamba &>/dev/null; then
-  alias -- mm="micromamba"
-else
-  log_warning "missing micromamba"
-fi
-
 # lazydocker
 # if command -v lazygit &>/dev/null; then
 #   alias -- lzd="lazydocker"
