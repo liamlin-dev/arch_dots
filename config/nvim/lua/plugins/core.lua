@@ -14,46 +14,30 @@ return {
     },
     build = ":TSUpdate",
     lazy = false,
-    opts = {
-      -- stylua: ignore start
-      ensure_installed = {
-        "bash", "c", "cpp", "lua", "luadoc", "markdown", "markdown_inline", "python",
-        "rust", "vim", "vimdoc", "json", "yaml", "cmake", "make", "toml"
-      },
-      -- stylua: ignore end
-      highlight = { enable = true },
-      indent = { enable = true },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            ["]f"] = "@function.outer",
-            ["]c"] = "@class.outer",
-            ["]a"] = "@parameter.inner",
-          },
-          goto_previous_start = {
-            ["[f"] = "@function.outer",
-            ["[c"] = "@class.outer",
-            ["[a"] = "@parameter.inner",
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    config = function()
+      require("nvim-treesitter").setup({
+        -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+        install_dir = vim.fn.stdpath("data") .. "/site",
+      })
+
+      require("nvim-treesitter").install({
+        "bash",
+        "c",
+        "cpp",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "rust",
+        "vim",
+        "vimdoc",
+        "json",
+        "yaml",
+        "cmake",
+        "make",
+        "toml",
+      })
     end,
   },
 

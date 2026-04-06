@@ -7,20 +7,6 @@ map("n", "x", [["_x]], { desc = "Delete Character without yanking" })
 map("x", "x", [["_d]], { desc = "Delete Selection without yanking" })
 map("x", "p", [["_dP]], { desc = "Paste without overwriting register" })
 
--- Better up/down (wrapped lines)
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-
--- Window navigation (handled by vim-tmux-navigator in tmux.lua)
-
--- Window resize
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-
 -- Move Lines
 map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
 map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
@@ -118,7 +104,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit Neovim" })
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Force Quit" })
 
--- Windows (leader+w)
+-- Windows --
 map("n", "<leader>ww", "<C-W>p", { desc = "Other Window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 map("n", "<leader>ws", "<C-W>s", { desc = "Split Below", remap = true })
@@ -129,10 +115,11 @@ map("n", "<leader>wv", "<C-W>v", { desc = "Split Right", remap = true })
 -- map("n", "<leader>wl", "<C-W>l", { desc = "Go Right", remap = true })
 map("n", "<leader>wo", "<C-W>o", { desc = "Only Window", remap = true })
 map("n", "<leader>w=", "<C-W>=", { desc = "Equal Size", remap = true })
-map("n", "<leader>w+", "<cmd>resize +5<cr>", { desc = "Increase Height" })
-map("n", "<leader>w-", "<cmd>resize -5<cr>", { desc = "Decrease Height" })
-map("n", "<leader>w>", "<cmd>vertical resize +5<cr>", { desc = "Increase Width" })
-map("n", "<leader>w<", "<cmd>vertical resize -5<cr>", { desc = "Decrease Width" })
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+
 
 -- Tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
