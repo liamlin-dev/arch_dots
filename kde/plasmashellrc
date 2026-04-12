@@ -1,20 +1,3 @@
-[PlasmaViews][Panel 2]
-floating=1
-panelLengthMode=1
-panelOpacity=1
-panelVisibility=2
-
-[PlasmaViews][Panel 2][Defaults]
-thickness=54
-
-[PlasmaViews][Panel 29]
-floating=1
-panelLengthMode=0
-panelOpacity=2
-
-[PlasmaViews][Panel 29][Defaults]
-thickness=44
-
 [PlasmaViews][Panel 56]
 floating=1
 floatingApplets=1

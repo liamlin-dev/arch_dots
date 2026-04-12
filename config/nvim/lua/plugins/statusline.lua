@@ -49,7 +49,7 @@ return {
             {
               "mode",
               fmt = function()
-                return ""
+                return ""
               end,
               separator = { left = "", right = "" },
               padding = {
