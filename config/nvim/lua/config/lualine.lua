@@ -1,0 +1,243 @@
+vim.g.lualine_laststatus = vim.o.laststatus
+if vim.fn.argc(-1) > 0 then
+  -- set an empty statusline till lualine loads
+  vim.o.statusline = " "
+else
+  -- hide the statusline on the starter page
+  vim.o.laststatus = 0
+end
+
+local palette = require("catppuccin.palettes").get_palette("mocha")
+local utils = require("util.lualine")
+local components = utils.components
+
+local icons = {
+  git = {
+    added = " ",
+    modified = " ",
+    removed = " ",
+  },
+  diagnostics = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " ",
+  },
+}
+
+vim.o.laststatus = vim.g.lualine_laststatus
+
+local opts = {
+  options = {
+    theme = "auto",
+    globalstatus = vim.o.laststatus == 3,
+    disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+    icons_enabled = true,
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {
+      {
+        "mode",
+        fmt = function()
+          return ""
+        end,
+        separator = { left = "", right = "" },
+        padding = {
+          left = 1,
+          right = 1,
+        },
+      },
+    },
+    lualine_b = {
+      { -- change background color
+        function()
+          return ""
+        end,
+        color = { bg = palette.mantle, fg = palette.rosewater },
+      },
+      {
+        "branch",
+        icon = "",
+        separator = { left = "", right = "" },
+        padding = {
+          left = 2,
+          right = 1,
+        },
+        color = { bg = palette.mantle, fg = palette.rosewater },
+      },
+    },
+    lualine_c = {
+      {
+        -- python env
+        function()
+          if vim.api.nvim_get_option_value("filetype", { buf = 0 }) == "python" then
+            local venv = os.getenv("CONDA_DEFAULT_ENV") or os.getenv("VIRTUAL_ENV")
+            if venv then
+              return string.format("(%s)", utils.env_cleanup(venv))
+            end
+          end
+          return ""
+        end,
+        separator = { left = "", right = "" },
+        color = { fg = palette.yellow, bg = palette.mantle },
+        padding = { left = 0, right = 1 },
+      },
+
+      {
+        "diff",
+        colored = true,
+        -- symbols = { added = " ", modified = " ", removed = " " },
+        symbols = {
+          added = icons.git.added,
+          modified = icons.git.modified,
+          removed = icons.git.removed,
+        },
+        source = function()
+          local gitsigns = vim.b.gitsigns_status_dict
+          if gitsigns then
+            return {
+              added = gitsigns.added,
+              modified = gitsigns.changed,
+              removed = gitsigns.removed,
+            }
+          end
+        end,
+        separator = { left = "", right = "" },
+        color = { bg = palette.mantle },
+      },
+      {
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        sections = { "error", "warn", "hint" },
+        symbols = {
+          error = icons.diagnostics.Error,
+          warn = icons.diagnostics.Warn,
+          info = icons.diagnostics.Info,
+          hint = icons.diagnostics.Hint,
+        },
+        colored = true,
+        separator = { left = "", right = "" },
+        color = { bg = palette.mantle },
+      },
+      {
+        "filename",
+        path = 1,
+      },
+    },
+
+    lualine_x = {
+      {
+        -- copilot
+        utils.copilot_status_icon,
+        padding = { left = 0, right = 2 },
+        separator = { right = "" },
+        color = { fg = palette.flamingo },
+      },
+      {
+        -- lsp
+        function()
+          local default_msg = "No LSP"
+
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
+          if next(clients) == nil then
+            return default_msg
+          end
+
+          local client_names = {}
+          for _, client in ipairs(clients) do
+            if client.name ~= "copilot" then
+              table.insert(client_names, client.name)
+            end
+          end
+
+          local text_client = table.concat(client_names, ", ")
+          if text_client == "" then
+            return default_msg
+          end
+          return text_client
+        end,
+        icon = " ",
+        color = { fg = palette.yellow },
+        padding = { left = 0, right = 2 },
+      },
+      {
+        "encoding",
+        color = { fg = palette.pink },
+        padding = { left = 0, right = 2 },
+      },
+      {
+        "fileformat",
+        color = { fg = palette.blue },
+        padding = { left = 0, right = 2 },
+      },
+      {
+        function()
+          return "󱞩 "
+        end,
+        separator = {
+          left = "",
+        },
+        color = { bg = palette.teal, fg = palette.base },
+        padding = 0.3,
+      },
+      {
+        function()
+          return "" .. vim.bo.shiftwidth
+        end,
+        padding = { left = 1, right = 0.5 },
+        separator = {
+          right = "",
+        },
+        color = { bg = palette.mantle, fg = palette.text },
+      },
+      components.spaces,
+      {
+        function()
+          return " "
+        end,
+        separator = {
+          left = "",
+        },
+        color = { bg = palette.yellow, fg = palette.base },
+        padding = 0.3,
+      },
+      {
+        "filetype",
+        icon_only = false,
+        colored = true,
+        padding = { left = 1, right = 0.5 },
+        separator = {
+          right = "",
+        },
+        color = { bg = palette.mantle, fg = palette.text },
+      },
+      components.spaces,
+      {
+        function()
+          return " "
+        end,
+        separator = {
+          left = "",
+        },
+        color = { bg = palette.blue, fg = palette.base },
+        padding = 0.3,
+      },
+      {
+        "progress",
+        separator = {
+          right = "",
+        },
+        color = { bg = palette.mantle, fg = palette.text },
+        padding = { left = 1, right = 0.5 },
+      },
+    },
+    lualine_y = {},
+    lualine_z = {},
+  },
+  extensions = { "neo-tree", "lazy", "fzf" },
+}
+
+require("lualine").setup(opts)

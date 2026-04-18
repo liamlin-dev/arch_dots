@@ -71,7 +71,7 @@ M.set_cpp = function()
       request = "launch",
       program = get_executable,
       cwd = "${workspaceFolder}",
-      stopAtEntry = false,
+      stopAtEntry = true,
       setupCommands = {
         { text = "-enable-pretty-printing", description = "Enable pretty printing", ignoreFailures = false },
         { text = "set follow-fork-mode child", description = "Follow fork", ignoreFailures = true },
