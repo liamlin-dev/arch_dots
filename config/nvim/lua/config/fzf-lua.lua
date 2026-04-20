@@ -1,8 +1,15 @@
 require("fzf-lua").setup({
   winopts = {
     height = 0.85,
-    width = 0.80,
-    preview = { default = "bat" },
+    width = 0.8,
+    fullscreen = false, -- start with fullscreen
+    border = "single",
+    preview = { default = "bat", border = "single", horizontal = "right:40%" },
+  },
+  lsp = {
+    symbols = {
+      symbol_style = 2, -- 1: icon+kind, 2: icon, 3: kind
+    },
   },
 })
 
